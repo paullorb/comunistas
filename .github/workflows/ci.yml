@@ -1,21 +1,24 @@
-name: Build
+name: CI
 
 on:
-  pull_request:
   push:
     branches: [main]
+  pull_request:
+
+concurrency:
+  # One run per pull-request branch, newest wins. On main every commit gets its
+  # own group: a shared group holds only one pending run, so a third push
+  # would cancel the second commit's run before it ever started.
+  group: ci-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: read
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+  pipeline:
+    name: CI
+    # Reusable pipeline shared across paullorb repos. Lint, audit, build, and
+    # a replay of supabase/migrations/ onto a scratch Postgres — a no-op here,
+    # there is no supabase directory. No secrets.
+    uses: paullorb/cicd/.github/workflows/app-ci.yml@86018ab77a3353da772ac1b63a5a4be9bf75767b
