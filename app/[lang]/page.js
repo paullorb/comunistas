@@ -4,9 +4,11 @@ import Motion from "../motion";
 import EnemyDefiner from "../enemy-definer";
 import SectionSheet from "../section-sheet";
 import Scene from "../scenes";
+import ShareButtons from "../share-buttons";
+import { SITE } from "../site";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
-const railTargets = ["#question", "#enemy", "#london", "#after", "#sources"];
+const railTargets = ["#question", "#enemy", "#london", "#after", "#about", "#sources"];
 
 function StoryVisual({ type, label, caption, ui }) {
   return (
@@ -113,12 +115,61 @@ export default async function Home({ params }) {
         <a href="#sources">{ui.closing.link} <span aria-hidden="true">↗</span></a>
       </section>
 
+      <section className="about" id="about" aria-labelledby="about-title">
+        <div className="about-head">
+          <p className="eyebrow">{ui.about.eyebrow}</p>
+          <h2 id="about-title">{ui.about.h2[0]}<br /><em>{ui.about.h2[1]}</em></h2>
+        </div>
+        <div className="about-body">
+          <p className="about-lead">{ui.about.lead}</p>
+          <p>{ui.about.body}</p>
+          <div className="about-cols">
+            <div>
+              <h3>{ui.about.series}</h3>
+              <ol className="series">
+                {[ui.about.s1, ui.about.s2].map(([id, name, note], i) => (
+                  <li key={id} className={i === 0 ? "is-current" : ""}><span>{id}</span><strong>{name}</strong><small>{note}</small></li>
+                ))}
+              </ol>
+            </div>
+            <div>
+              <h3>{ui.about.methodTitle}</h3>
+              <ul className="method">{ui.about.method.map((line) => <li key={line}>{line}</li>)}</ul>
+            </div>
+            <div>
+              <h3>{ui.about.creditsTitle}</h3>
+              <ul className="method">
+                {SITE.author && <li><b>{ui.about.authorLabel}:</b> {SITE.author}</li>}
+                {ui.about.credits.map((line) => <li key={line}>{line}</li>)}
+                {SITE.contact && <li>{ui.about.contactLine} <a href={`mailto:${SITE.contact}`}>{SITE.contact}</a></li>}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="sources" id="sources">
-        <div><p className="eyebrow">{ui.sources.eyebrow}</p><h2>{ui.sources.h2}</h2><p>{ui.sources.p}</p></div>
+        <div className="sources-intro"><p className="eyebrow">{ui.sources.eyebrow}</p><h2>{ui.sources.h2}</h2><p>{ui.sources.p}</p>
+          <ShareButtons title={ui.title} text={ui.ogDescription} labels={ui.share} />
+        </div>
         <ol>{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer">{source.title}</a><span>{source.detail}</span></li>)}</ol>
         <p className="editorial-note">{ui.sources.editorial}</p>
       </section>
-      <footer><a className="wordmark" href="#top"><span className="mark">C.</span> comunistas</a><span>{ui.footer.tagline}</span><a href="#top">{ui.footer.top}</a></footer>
+
+      <footer className="site-footer" aria-label={ui.footer.nav}>
+        <div className="foot-brand">
+          <a className="wordmark" href="#top"><span className="mark">C.</span> comunistas</a>
+          <p>{ui.footer.tagline}</p>
+          <small>{ui.footer.note}</small>
+        </div>
+        <div className="foot-series"><span>{ui.footer.series}</span></div>
+        <nav className="foot-links">
+          <a href="#about">{ui.rail[4]}</a>
+          <a href="#sources">{ui.sourcesLink}</a>
+          {locales.map((code) => <a key={code} href={localePath(code)} lang={code} hrefLang={code} aria-current={code === lang ? "true" : undefined}>{code === "es" ? "Español" : "English"}</a>)}
+          <a href="#top">{ui.footer.top}</a>
+        </nav>
+      </footer>
     </main>
   );
 }

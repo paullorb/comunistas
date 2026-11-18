@@ -1,0 +1,53 @@
+/* About, sources, share and footer: the closing movement of the page. */
+
+.about{padding:16vh 10vw 14vh;display:grid;grid-template-columns:minmax(300px,1fr) minmax(0,1.6fr);gap:5vw;border-top:1px solid var(--line)}
+.about-head h2{font:600 clamp(36px,4.2vw,60px)/1.06 var(--serif);letter-spacing:-.05em;margin:28px 0 0}
+.about-head h2 em{font-weight:500;color:var(--red)}
+.about-head{position:sticky;top:calc(var(--bar) + 32px);align-self:start}
+.about-lead{font:500 clamp(22px,2.2vw,30px)/1.4 var(--serif);letter-spacing:-.02em;margin:0 0 22px;max-width:760px}
+.about-body>p:not(.about-lead){max-width:620px;color:#4d4b45;line-height:1.75;font-size:16px;margin:0}
+.about-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:64px;padding-top:32px;border-top:1px solid var(--line)}
+.about-cols h3{font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:0 0 18px;font-weight:500}
+.series{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.series li{display:grid;gap:4px;padding-left:16px;border-left:2px solid var(--line)}
+.series li.is-current{border-left-color:var(--red)}
+.series span{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.series strong{font:600 20px/1.2 var(--serif);letter-spacing:-.02em}
+.series small{font-size:14px;color:#4d4b45}
+.method{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.method li{font-size:14px;line-height:1.6;color:#4d4b45;padding-left:16px;position:relative}
+.method li:before{content:"";position:absolute;left:0;top:.7em;width:7px;height:2px;background:var(--red)}
+.method a{text-underline-offset:3px}
+
+/* Sources: the intro stays in view while the long list scrolls */
+.sources-intro{position:sticky;top:calc(var(--bar) + 32px);align-self:start}
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:28px}
+.share button{all:unset;box-sizing:border-box;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;padding:0 16px;border:1px solid var(--ink);font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;transition:background .25s,color .25s}
+.share button:hover{background:var(--ink);color:var(--paper)}
+.share button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.share button span{margin-left:8px;color:var(--red)}
+.share button:hover span{color:var(--paper)}
+.share-status{font:11px var(--mono);letter-spacing:.06em;color:var(--muted);min-width:8ch}
+
+/* Footer */
+.site-footer{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:32px 6vw;align-items:start;padding:64px 5.2vw 48px;background:var(--ink);color:#cfcbbf;font:12px/1.6 var(--sans)}
+.site-footer .wordmark{color:var(--paper)}
+.foot-brand p{margin:18px 0 6px;font-size:15px;color:var(--paper);max-width:380px}
+.foot-brand small{font:11px/1.6 var(--mono);letter-spacing:.04em;color:#a8a498;display:block;max-width:420px}
+.foot-series span{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#e8695d}
+.foot-links{display:grid;gap:2px;justify-items:start}
+.foot-links a{min-height:44px;display:inline-flex;align-items:center;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--paper);border-bottom:1px solid transparent}
+.foot-links a:hover{color:#e8695d}
+.foot-links a[aria-current="true"]{color:#e8695d}
+.site-footer :focus-visible{outline-color:#fff}
+
+@media(max-width:1100px){
+  .about{grid-template-columns:1fr;padding:12vh 7vw 10vh}
+  .about-head{position:static}
+  .about-cols{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .sources-intro{position:static}
+  .site-footer{grid-template-columns:1fr;padding:48px 7vw 40px}
+}
+@media(max-width:640px){.about-cols{grid-template-columns:1fr;gap:36px}}
