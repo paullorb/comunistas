@@ -13,7 +13,11 @@ const en = {
     langTag: { en: "in English", es: "in Spanish" },
     edition: "THE PINOCHET FILE",
     sourcesLink: "Sources",
-    heroEyebrow: "London, 1998",
+    heroEyebrow: "Prologue — London, 1998",
+    skip: "Skip to content",
+    menu: "Sections",
+    menuClose: "Close",
+    parts: ["Part I", "Part II", "Part III"],
     heroLines: ["When a former", "dictator was", "stopped at the door."],
     heroIntro:
       "In October 1998, Augusto Pinochet came to London for medical treatment. A Spanish arrest warrant changed the visit into a test of whether a former head of state could be held to account abroad.",
@@ -27,6 +31,7 @@ const en = {
     contextNote:
       "This is the story of the legal route opened in London—and why it ended before a trial. To understand why the warrant mattered, we start twenty-five years earlier, with a definition.",
     enemy: {
+      part: "Part I",
       eyebrow: "Before the warrant",
       h2: ["To read the warrant,", "first read the ", "enemy list."],
       intro:
@@ -41,7 +46,7 @@ const en = {
     scrollHint: "Scroll to move through the record",
     afterAria: "After London",
     afterHead: "After London",
-    afterHint: "Three more moments",
+    afterHint: "Three more moments (08–10)",
     onRecord: "ON THE RECORD",
     scenes: {
       arrested: "ARRESTED",
@@ -172,11 +177,13 @@ const en = {
   },
   stages: [
     {
+      short: "BEFORE",
       date: "BEFORE 11 SEP 1973",
       title: "A country of people.",
       body: "Before the coup, Chile’s politics ran through parties, unions, universities and parishes. On the left, every dot stands for one person. None of them carries a label yet. Keep scrolling and watch what one word is asked to hold.",
     },
     {
+      short: "COUP",
       date: "11 SEP 1973",
       title: "The label arrives.",
       body: "The armed forces took power and presented the takeover as an end to Marxism in Chile. From the first week, “Marxist” stopped being a description and became a category: a word that decided who counted as the enemy.",
@@ -184,6 +191,7 @@ const en = {
       legend: ["A person", "Named: “Marxist”"],
     },
     {
+      short: "DL 77",
       date: "8 OCT 1973 · DECREE LAW 77",
       title: "A coalition becomes a doctrine.",
       body: "Decree Law 77 declared illegal and dissolved the parties of the Allende coalition — the Communist, Socialist and Popular Socialist Union parties among them — and made merely organising such an association a crime. On the same day the government declared that its mission was to “extirpate Marxism from Chile”: a doctrine, not an act, was now what the law set out to punish.",
@@ -191,6 +199,7 @@ const en = {
       source: "Ley Chile (BCN) — Decreto Ley 77, official text (in Spanish)",
     },
     {
+      short: "DL 78",
       date: "11 OCT 1973 · DECREE LAW 78",
       title: "Everyone else, in recess.",
       body: "Decree Law 78 declared every party still in existence — the non-Marxist ones — in recess, a so-called political truce. The enemy now had a name, and politics itself was suspended around it.",
@@ -198,18 +207,21 @@ const en = {
       source: "IACHR, Report on Chile (1974), ch. 12",
     },
     {
+      short: "PRATS",
       date: "30 SEP 1974 · BUENOS AIRES",
       title: "A general, abroad.",
       body: "Carlos Prats, the career general Pinochet had succeeded as army commander, was killed with his wife by a car bomb in Buenos Aires. Chilean courts later convicted former officials of the secret police, DINA — among them its chief, Manuel Contreras — for the killing.",
       source: "Wikipedia (Spanish) — Carlos Prats (secondary source — verify against court records)",
     },
     {
+      short: "LETELIER",
       date: "21 SEP 1976 · WASHINGTON, D.C.",
       title: "A minister, in the American capital.",
       body: "Orlando Letelier, who had served as Allende’s foreign minister, was killed by a car bomb in Washington together with his American colleague Ronni Moffitt. U.S. investigators traced the attack to a DINA agent, Michael Townley, and to Operation Condor, the cooperation between southern-cone security services.",
       source: "National Security Archive — The Pinochet Regime Declassified",
     },
     {
+      short: "DL 1697",
       date: "12 MAR 1977 · DECREE LAW 1697",
       title: "No parties at all.",
       body: "By decree, every remaining political party was dissolved and future parties forbidden. The enemy had been defined so widely that politics could no longer be done in the open.",
@@ -217,6 +229,7 @@ const en = {
       source: "Vicaría de la Solidaridad — Decreto Ley 1.697",
     },
     {
+      short: "COUNT",
       date: "1991 — 2011 · THE COUNT",
       title: "The label named an ideology. The record names people.",
       body: "Later, Chile’s own state commissions counted. After the 2011 revision of the Valech report, 40,018 people were officially recognised as victims — imprisoned, tortured, killed or disappeared — 3,065 of them killed or disappeared. In this last view, each dot stands for about 111 of them.",

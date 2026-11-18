@@ -13,7 +13,11 @@ const es = {
     langTag: { en: "en inglés", es: "en español" },
     edition: "EL EXPEDIENTE PINOCHET",
     sourcesLink: "Fuentes",
-    heroEyebrow: "Londres, 1998",
+    heroEyebrow: "Prólogo — Londres, 1998",
+    skip: "Saltar al contenido",
+    menu: "Secciones",
+    menuClose: "Cerrar",
+    parts: ["Parte I", "Parte II", "Parte III"],
     heroLines: ["Cuando un ex", "dictador fue", "frenado en la puerta."],
     heroIntro:
       "En octubre de 1998, Augusto Pinochet viajó a Londres por un tratamiento médico. Una orden de detención española convirtió la visita en una prueba: ¿puede un ex jefe de Estado responder ante la justicia en el extranjero?",
@@ -27,6 +31,7 @@ const es = {
     contextNote:
       "Esta es la historia del camino jurídico que se abrió en Londres y de por qué terminó antes de un juicio. Para entender por qué importó la orden, empezamos veinticinco años antes, con una definición.",
     enemy: {
+      part: "Parte I",
       eyebrow: "Antes de la orden",
       h2: ["Para leer la orden,", "antes lee la ", "lista del enemigo."],
       intro:
@@ -41,7 +46,7 @@ const es = {
     scrollHint: "Desplázate para recorrer el registro",
     afterAria: "Después de Londres",
     afterHead: "Después de Londres",
-    afterHint: "Tres momentos más",
+    afterHint: "Tres momentos más (08–10)",
     onRecord: "EN EL REGISTRO",
     scenes: {
       arrested: "DETENIDO",
@@ -172,11 +177,13 @@ const es = {
   },
   stages: [
     {
+      short: "ANTES",
       date: "ANTES DEL 11 SEP 1973",
       title: "Un país de personas.",
       body: "Antes del golpe, la política chilena pasaba por partidos, sindicatos, universidades y parroquias. A la izquierda, cada punto representa a una persona. Ninguna lleva todavía una etiqueta. Sigue desplazándote y observa lo que se le pide cargar a una sola palabra.",
     },
     {
+      short: "GOLPE",
       date: "11 SEP 1973",
       title: "Llega la etiqueta.",
       body: "Las Fuerzas Armadas tomaron el poder y presentaron el golpe como el fin del marxismo en Chile. Desde la primera semana, «marxista» dejó de ser una descripción y se volvió una categoría: una palabra que decidía quién contaba como enemigo.",
@@ -184,6 +191,7 @@ const es = {
       legend: ["Una persona", "Señalado: «marxista»"],
     },
     {
+      short: "DL 77",
       date: "8 OCT 1973 · DECRETO LEY 77",
       title: "Una coalición se convierte en doctrina.",
       body: "El Decreto Ley 77 declaró ilícitos y disolvió los partidos de la coalición de Allende —entre ellos el Comunista, el Socialista y la Unión Socialista Popular— y convirtió en delito el solo hecho de organizar una asociación así. Ese mismo día, el gobierno declaró que su misión era extirpar el marxismo de Chile: lo que la ley se proponía castigar era ahora una doctrina, no un acto.",
@@ -191,6 +199,7 @@ const es = {
       source: "Ley Chile (BCN) — Decreto Ley 77, texto oficial",
     },
     {
+      short: "DL 78",
       date: "11 OCT 1973 · DECRETO LEY 78",
       title: "Todos los demás, en receso.",
       body: "El Decreto Ley 78 declaró en receso a todos los partidos que seguían existiendo —los no marxistas—, en una llamada «tregua política». El enemigo ya tenía nombre, y la política misma quedó suspendida a su alrededor.",
@@ -198,6 +207,7 @@ const es = {
       source: "CIDH, Informe sobre Chile (1974), cap. 12 (en inglés)",
     },
     {
+      short: "PRATS",
       date: "30 SEP 1974 · BUENOS AIRES",
       title: "Un general, en el extranjero.",
       body: "Carlos Prats, el general de carrera al que Pinochet había sucedido como comandante en jefe del Ejército, murió junto a su esposa por un coche bomba en Buenos Aires. Tribunales chilenos condenaron después a antiguos funcionarios de la policía secreta, la DINA —entre ellos su jefe, Manuel Contreras—, por el crimen.",
@@ -205,6 +215,7 @@ const es = {
       sourceHref: "https://es.wikipedia.org/wiki/Carlos_Prats",
     },
     {
+      short: "LETELIER",
       date: "21 SEP 1976 · WASHINGTON D. C.",
       title: "Un ministro, en la capital estadounidense.",
       body: "Orlando Letelier, que había sido canciller de Allende, murió por un coche bomba en Washington junto a su colega estadounidense Ronni Moffitt. Los investigadores de EE. UU. rastrearon el atentado hasta un agente de la DINA, Michael Townley, y hasta la Operación Cóndor, la coordinación entre los servicios de seguridad del Cono Sur.",
@@ -212,6 +223,7 @@ const es = {
       sourceHref: "https://es.wikipedia.org/wiki/Orlando_Letelier",
     },
     {
+      short: "DL 1697",
       date: "12 MAR 1977 · DECRETO LEY 1697",
       title: "Ningún partido.",
       body: "Por decreto, se disolvieron todos los partidos políticos que quedaban y se prohibieron los futuros. El enemigo se había definido de forma tan amplia que ya no se podía hacer política a la vista de todos.",
@@ -219,6 +231,7 @@ const es = {
       source: "Vicaría de la Solidaridad — Decreto Ley 1.697",
     },
     {
+      short: "CIFRAS",
       date: "1991 — 2011 · EL RECUENTO",
       title: "La etiqueta nombraba una ideología. El registro nombra personas.",
       body: "Más tarde, las comisiones del propio Estado chileno contaron. Tras la actualización de 2011 del informe Valech, 40.018 personas fueron reconocidas oficialmente como víctimas —presas, torturadas, asesinadas o desaparecidas—, 3.065 de ellas asesinadas o desaparecidas. En esta última vista, cada punto representa a unas 111 de ellas.",

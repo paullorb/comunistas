@@ -164,7 +164,7 @@ export default function EnemyDefiner({ stages, locale, t }) {
   return (
     <section className="enemy" id="enemy" ref={rootRef} aria-label={t.aria}>
       <div className="enemy-head">
-        <p className="eyebrow"><span>02</span> {t.eyebrow}</p>
+        <p className="eyebrow"><span>{t.part}</span> {t.eyebrow}</p>
         <h2>{t.h2[0]}<br />{t.h2[1]}<em>{t.h2[2]}</em></h2>
         <p>{t.intro}</p>
       </div>
@@ -174,7 +174,7 @@ export default function EnemyDefiner({ stages, locale, t }) {
           <nav className="enemy-nav" aria-label={t.nav}>
             {stages.map((s, i) => (
               <button key={s.key} type="button" aria-current={i === active ? "step" : undefined} aria-label={`${s.date}: ${s.title}`} onClick={() => goTo(i)} className={i === active ? "is-active" : i < active ? "is-past" : ""}>
-                <span>{String(i + 1).padStart(2, "0")}</span>
+                <i aria-hidden="true" /><span>{s.short}</span>
               </button>
             ))}
           </nav>

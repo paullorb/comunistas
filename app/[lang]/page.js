@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Reveal from "../reveal";
 import Motion from "../motion";
 import EnemyDefiner from "../enemy-definer";
+import SectionSheet from "../section-sheet";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
 const railTargets = ["#question", "#enemy", "#london", "#after", "#sources"];
@@ -125,7 +126,9 @@ export default async function Home({ params }) {
   const { ui, chapters, afterChapters, stages, sources, locale } = getContent(lang);
 
   return (
-    <main id="top">
+    <main id="main">
+      <a className="skip" href="#main">{ui.skip}</a>
+      <div id="top" />
       <Motion />
       <div className="progress" aria-hidden="true"><i className="progress-bar" /></div>
       <nav className="rail" aria-label={ui.sectionsLabel}>
@@ -142,12 +145,13 @@ export default async function Home({ params }) {
               <a key={code} href={localePath(code)} lang={code} hrefLang={code} aria-current={code === lang ? "true" : undefined}>{code.toUpperCase()}</a>
             ))}
           </nav>
+          <SectionSheet label={ui.menu} closeLabel={ui.menuClose} title={ui.sectionsLabel} items={railTargets.map((href, i) => ({ href, label: ui.rail[i] }))} />
         </div>
       </header>
 
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow"><span>01</span> {ui.heroEyebrow}</p>
+          <p className="eyebrow">{ui.heroEyebrow}</p>
           <h1>
             <span className="ln"><span>{ui.heroLines[0]}</span></span>
             <span className="ln"><span>{ui.heroLines[1]}</span></span>
@@ -176,12 +180,12 @@ export default async function Home({ params }) {
       <EnemyDefiner stages={stages} locale={locale} t={ui.enemy} />
 
       <section className="timeline" id="london" aria-label={ui.timelineAria}>
-        <div className="timeline-head"><p className="eyebrow"><span>03</span> {ui.timelineHead}</p><p>{ui.scrollHint} <span aria-hidden="true">↓</span></p></div>
+        <div className="timeline-head"><p className="eyebrow"><span>{ui.parts[1]}</span> {ui.timelineHead}</p><p>{ui.scrollHint} <span aria-hidden="true">↓</span></p></div>
         {chapters.map((item, index) => <Chapter key={item.eyebrow} item={item} index={index} ui={ui} id={index === 0 ? "chapter-one" : undefined} ending={index === chapters.length - 1} />)}
       </section>
 
       <section className="timeline after" id="after" aria-label={ui.afterAria}>
-        <div className="timeline-head"><p className="eyebrow"><span>04</span> {ui.afterHead}</p><p>{ui.afterHint} <span aria-hidden="true">↓</span></p></div>
+        <div className="timeline-head"><p className="eyebrow"><span>{ui.parts[2]}</span> {ui.afterHead}</p><p>{ui.afterHint} <span aria-hidden="true">↓</span></p></div>
         {afterChapters.map((item, index) => <Chapter key={item.eyebrow} item={item} index={chapters.length + index} ui={ui} />)}
       </section>
 

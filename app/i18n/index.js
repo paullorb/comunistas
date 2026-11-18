@@ -24,6 +24,7 @@ export function getContent(lang) {
       const t = c.stages[i];
       return {
         key: base.key,
+        short: t.short,
         date: t.date,
         title: t.title,
         body: t.body,
