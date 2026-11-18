@@ -54,6 +54,7 @@ const es = {
       departure: ["SANTIAGO", "EMBARQUE"],
       ruling: ["INMUNIDAD", "LIMITADA"],
       heathrow: "HEATHROW — CENTRO DE LONDRES",
+      board: "SALIDAS",
       noVerdict: "SIN VEREDICTO",
     },
     closing: {

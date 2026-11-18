@@ -3,99 +3,16 @@ import Reveal from "../reveal";
 import Motion from "../motion";
 import EnemyDefiner from "../enemy-definer";
 import SectionSheet from "../section-sheet";
+import Scene from "../scenes";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
 const railTargets = ["#question", "#enemy", "#london", "#after", "#sources"];
 
-function StoryVisual({ type, label, caption, scenes }) {
+function StoryVisual({ type, label, caption, ui }) {
   return (
     <div className={`chapter-visual visual-${type}`}>
       <span className="visual-label">{label}</span>
-      {type === "coup" && (
-        <>
-          <div className="palace"><i /><i /><i /><i /><i /></div>
-          <div className="smoke" />
-        </>
-      )}
-      {type === "arrival" && (
-        <>
-          <div className="plane" aria-hidden="true">✳</div>
-          <div className="arrival-line" data-label={scenes.heathrow} />
-        </>
-      )}
-      {type === "arrest" && (
-        <>
-          <div className="paper-stack"><i /><i /><i /></div>
-          <div className="stamp">{scenes.arrested}</div>
-        </>
-      )}
-      {type === "court" && (
-        <>
-          <div className="bench"><i /><i /><i /></div>
-          <div className="vote">3 : 2</div>
-        </>
-      )}
-      {type === "ruling" && (
-        <div className="ruling-sheet">
-          <small>REGINA v. BARTLE</small><strong>{scenes.ruling[0]}<br />{scenes.ruling[1]}</strong>
-          <i /><i /><i />
-        </div>
-      )}
-      {type === "commit" && (
-        <>
-          <div className="door"><span>{scenes.courtroom[0]}<br />{scenes.courtroom[1]}</span></div>
-          <div className="arrow" aria-hidden="true">→</div>
-        </>
-      )}
-      {type === "end" && (
-        <>
-          <div className="departure">{scenes.departure[0]}<br /><strong>{scenes.departure[1]}</strong></div>
-          <div className="red-line end-line" />
-        </>
-      )}
-      {type === "return" && (
-        <svg className="sv" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect x="0" y="215" width="400" height="105" fill="#3c3a36" />
-          <path d="M0 262H400" stroke="#d4d0c6" strokeWidth="3" strokeDasharray="22 16" />
-          <g className="sv-plane"><g transform="translate(30 28) scale(.62)" fill="#191916">
-            <path d="M40 120c0-9 8-14 20-14h92c14 0 26 5 34 14-8 9-20 14-34 14H60c-12 0-20-5-20-14z" />
-            <path d="M92 108L70 66h22l44 42z M92 132L70 174h22l44-42z" fill="#bf2727" />
-            <path d="M40 112l-14-24h14z" />
-          </g></g>
-          <g className="sv-chair" fill="none" stroke="#191916" strokeWidth="3.5" strokeLinecap="round">
-            <circle cx="236" cy="236" r="22" />
-            <path d="M222 192v30h40M222 192l-6-18" />
-          </g>
-          <g className="sv-figure" fill="#191916" stroke="#191916" strokeWidth="5" strokeLinecap="round">
-            <circle cx="304" cy="160" r="9" stroke="none" />
-            <path d="M304 172v46M304 182l-16 22M304 182l16 22M304 218l-10 34M304 218l10 34" fill="none" />
-          </g>
-        </svg>
-      )}
-      {type === "immunity" && (
-        <svg className="sv" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <g transform="translate(60 14) scale(.7)">
-            <path className="sv-shield" d="M200 34l92 30v82c0 56-48 88-92 106-44-18-92-50-92-106V64z" fill="#eee9de" stroke="#191916" strokeWidth="3" />
-            <path className="sv-crack" d="M200 34l-12 62 28 40-20 52 10 64" pathLength="1" strokeDasharray="1" strokeDashoffset="0" fill="none" stroke="#bf2727" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-          </g>
-          <rect className="sv-bar-yes" x="92" y="228" width="168" height="12" fill="#bf2727" />
-          <rect className="sv-bar-no" x="92" y="248" width="72" height="12" fill="#9a968b" />
-          <text x="270" y="238" fontFamily="DM Mono, monospace" fontSize="11" fill="#191916">14</text>
-          <text x="174" y="258" fontFamily="DM Mono, monospace" fontSize="11" fill="#191916">6</text>
-        </svg>
-      )}
-      {type === "verdict" && (
-        <svg className="sv" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <g className="sv-dock">
-            <rect x="120" y="124" width="160" height="96" fill="#715640" />
-            <rect x="120" y="116" width="160" height="12" fill="#9c7a58" />
-            <rect x="136" y="82" width="14" height="40" rx="6" fill="#2a2724" />
-            <rect x="250" y="82" width="14" height="40" rx="6" fill="#2a2724" />
-          </g>
-          <path className="sv-open-line" d="M52 240H348" pathLength="1" strokeDasharray="1" strokeDashoffset="0" fill="none" stroke="#bf2727" strokeWidth="6" strokeLinecap="round" />
-          <text className="sv-verdict" x="200" y="62" textAnchor="middle" fontFamily="DM Mono, monospace" fontSize="14" letterSpacing="3" fill="#eee5d5">{scenes.noVerdict}</text>
-        </svg>
-      )}
+      <Scene type={type} ui={ui} />
       <span className="visual-caption">{caption}</span>
     </div>
   );
@@ -108,7 +25,7 @@ function Chapter({ item, index, id, ending, ui }) {
       <div className="chapter-date">
         {item.date[0]}<br /><b>{item.date[1]}</b><span>{item.date[2]}</span>
       </div>
-      <StoryVisual type={item.visual} label={item.label} caption={item.caption} scenes={ui.scenes} />
+      <StoryVisual type={item.visual} label={item.label} caption={item.caption} ui={ui} />
       <div className="chapter-copy">
         <p className="chapter-no">{item.eyebrow}</p>
         <h2>{item.title}</h2>

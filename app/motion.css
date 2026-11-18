@@ -192,3 +192,9 @@ html{scroll-padding-top:calc(var(--bar) + 12px)}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
   .progress{display:none}
 }
+
+/* One chip style for every panel label, and a shared grain over all ten illustrations */
+.visual-label,.visual-caption{background:var(--paper);color:var(--ink);padding:3px 8px}
+.visual-court .visual-label,.visual-court .visual-caption,.visual-verdict .visual-label,.visual-verdict .visual-caption,.visual-return .visual-caption{color:var(--ink)}
+.chapter-visual{height:min(380px,60vw);min-height:260px}
+.chapter-visual::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:multiply;opacity:.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
