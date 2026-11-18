@@ -6,7 +6,7 @@ const es = {
     description:
       "Cómo una dictadura definió a su enemigo, cómo una orden de detención en Londres lo puso a prueba y los límites del desenlace: un relato interactivo basado en fuentes.",
     ogDescription: "Una historia sobre la ley, la memoria y la distancia entre ambas.",
-    rail: ["La pregunta", "La lista del enemigo", "Londres, 1998–2000", "Después de Londres", "Fuentes"],
+    rail: ["La pregunta", "La lista del enemigo", "Londres, 1998–2000", "Después de Londres", "Sobre el proyecto", "Fuentes"],
     sectionsLabel: "Secciones",
     homeLabel: "Inicio de Comunistas",
     langLabel: "Idioma",
@@ -70,7 +70,39 @@ const es = {
       editorial:
         "Nota editorial: «llevado ante la justicia» se usa a menudo para describir la importancia histórica del caso. Pinochet no fue extraditado, no fue juzgado en España y nunca fue condenado. La sección de la lista del enemigo es una lectura editorial de los decretos que cita; los decretos y las cifras de víctimas son el registro documental.",
     },
-    footer: { tagline: "Una historia sobre la ley, la memoria y la distancia entre ambas.", top: "Volver arriba ↑" },
+    about: {
+      eyebrow: "Sobre el proyecto",
+      h2: ["¿Por qué", "«comunistas»?"],
+      lead: "Es la palabra con la que algunos regímenes y movimientos nombraron a su enemigo, y que luego estiraron mucho más allá de cualquier doctrina. Esta serie sigue esa palabra, figura por figura: cómo se definió al enemigo, a quién alcanzó y qué costó.",
+      body: "Cada historia parte del registro documental —decretos, sentencias, actas parlamentarias, informes oficiales— y separa lo que dicen las fuentes de la lectura editorial, que siempre se señala como tal.",
+      series: "La serie",
+      s1: ["Historia 001", "Pinochet — Chile, 1973–2006", "Estás aquí."],
+      s2: ["Historia 002", "En preparación", "Otra figura, el mismo método."],
+      methodTitle: "Cómo está hecho",
+      method: [
+        "Primero las fuentes primarias: decretos, sentencias, actas parlamentarias e informes oficiales.",
+        "Las fuentes de prensa y las secundarias se señalan como tales y se contrastan con las primarias cuando es posible.",
+        "Las lecturas editoriales se marcan como «lectura editorial»; nunca se presentan como hechos.",
+        "Las cifras son reconocimientos oficiales, no estimaciones de todas las víctimas.",
+        "Cuando las fuentes discrepan en una fecha, se muestra la discrepancia en lugar de esconderla.",
+        "Disponible en español y en inglés; las fuentes en tu idioma aparecen primero.",
+      ],
+      creditsTitle: "Créditos",
+      credits: [
+        "Hecho con Next.js, GSAP, canvas y SVG dibujado a mano.",
+        "Tipografías: Playfair Display, DM Sans y DM Mono (SIL Open Font License).",
+      ],
+      authorLabel: "Concepto, diseño y desarrollo",
+      contactLine: "¿Encontraste un error? Escribe a",
+    },
+    share: { share: "Compartir", copy: "Copiar enlace", copied: "Enlace copiado", copyFailed: "No se pudo copiar el enlace" },
+    footer: {
+      tagline: "Una historia sobre la ley, la memoria y la distancia entre ambas.",
+      top: "Volver arriba ↑",
+      series: "Historia 001 · El expediente Pinochet",
+      note: "Un proyecto independiente, basado en fuentes. Sin vínculo con ningún partido ni institución.",
+      nav: "Pie de página",
+    },
   },
   chapters: [
     {

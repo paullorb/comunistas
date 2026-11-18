@@ -6,7 +6,7 @@ const en = {
     description:
       "How a dictatorship defined its enemy, how a warrant in London tested it, and the limits of the outcome — an interactive, source-led account.",
     ogDescription: "A story about law, memory and the distance between them.",
-    rail: ["The question", "The enemy list", "London, 1998–2000", "After London", "Sources"],
+    rail: ["The question", "The enemy list", "London, 1998–2000", "After London", "About the project", "Sources"],
     sectionsLabel: "Sections",
     homeLabel: "Comunistas home",
     langLabel: "Language",
@@ -70,7 +70,39 @@ const en = {
       editorial:
         "Editorial note: “brought to justice” is often used to describe the case’s historical significance. Pinochet was not extradited and did not stand trial in Spain, and was never convicted. The enemy-list section is an editorial reading of the decrees it cites; the decrees and the victim counts are the documentary record.",
     },
-    footer: { tagline: "A story about law, memory and the distance between them.", top: "Back to top ↑" },
+    about: {
+      eyebrow: "About the project",
+      h2: ["Why", "“comunistas”?"],
+      lead: "It is the word some regimes and movements used to name their enemy — and then stretched far beyond any doctrine. This series follows that word, figure by figure: how the enemy was defined, who it reached, and what it cost.",
+      body: "Every story starts from the documentary record — decrees, judgments, parliamentary papers, official reports — and keeps what the sources say apart from the editorial reading, which is always marked as such.",
+      series: "The series",
+      s1: ["Story 001", "Pinochet — Chile, 1973–2006", "You are here."],
+      s2: ["Story 002", "In preparation", "Another figure, the same method."],
+      methodTitle: "How it is made",
+      method: [
+        "Primary sources first: decrees, judgments, parliamentary records and official reports.",
+        "Press and secondary sources are labelled as such and checked against primary ones where possible.",
+        "Editorial readings are flagged “editorial reading”; they are never presented as fact.",
+        "Figures are official recognitions, not estimates of every victim.",
+        "Where sources disagree on a date, the disagreement is shown rather than hidden.",
+        "Available in Spanish and English; sources in your language are listed first.",
+      ],
+      creditsTitle: "Credits",
+      credits: [
+        "Built with Next.js, GSAP, canvas and hand-drawn SVG.",
+        "Typefaces: Playfair Display, DM Sans and DM Mono (SIL Open Font License).",
+      ],
+      authorLabel: "Concept, design and development",
+      contactLine: "Found a mistake? Write to",
+    },
+    share: { share: "Share", copy: "Copy link", copied: "Link copied", copyFailed: "Could not copy the link" },
+    footer: {
+      tagline: "A story about law, memory and the distance between them.",
+      top: "Back to top ↑",
+      series: "Story 001 · The Pinochet File",
+      note: "An independent, source-led project. Not affiliated with any party or institution.",
+      nav: "Footer",
+    },
   },
   chapters: [
     {

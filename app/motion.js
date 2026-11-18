@@ -95,6 +95,33 @@ function scrollProgress() {
   });
 }
 
+// Section changes — paper → dark → paper → red → paper. An incoming dark or red section unfolds from an
+// inset sheet with rounded top corners to full bleed as it rises; an outgoing one folds back into an
+// inset sheet with rounded bottom corners, so the paper underneath shows through at the seams.
+function sheets() {
+  const FULL = "inset(0vh 0vw 0vh 0vw round 0px 0px 0px 0px)";
+  const enter = (sel, start = "top 100%", end = "top 30%") => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    gsap.fromTo(el, { clipPath: "inset(9vh 5vw 0vh 5vw round 44px 44px 0px 0px)" }, {
+      clipPath: FULL, ease: "none",
+      scrollTrigger: { trigger: el, start, end, scrub: true },
+    });
+  };
+  const leave = (sel, start = "bottom 100%", end = "bottom 40%") => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    gsap.fromTo(el, { clipPath: FULL }, {
+      clipPath: "inset(0vh 5vw 9vh 5vw round 0px 0px 44px 44px)", ease: "none", immediateRender: false,
+      scrollTrigger: { trigger: el, start, end, scrub: true },
+    });
+  };
+  enter(".band");
+  leave(".enemy");
+  enter(".closing");
+  leave(".closing");
+}
+
 function contextBand() {
   const statement = document.querySelector(".context-statement");
   if (!statement) return;
@@ -234,6 +261,7 @@ export default function Motion() {
       document.documentElement.classList.add("motion");
       heroIntro();
       scrollProgress();
+      sheets();
       contextBand();
       headings();
       chapterScenes();
