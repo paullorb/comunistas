@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,6 +53,18 @@ function heroIntro() {
     .from(".warrant b", { scale: 2.6, opacity: 0, rotation: 8, duration: 0.35, ease: "power4.in" }, 1.85)
     .to(".warrant", { x: "+=4", y: "+=3", duration: 0.05, repeat: 5, yoyo: true, ease: "none" }, 2.2)
     .from(".hero-art .art-caption, .hero-index", { opacity: 0, duration: 0.8 }, 2.2);
+}
+
+// Inertial wheel scrolling on the page's native scroll: sticky keeps working, touch stays native, and
+// anchor links and scrollIntoView are left to the browser (Lenis follows them). It runs on GSAP's
+// ticker so every scrubbed trigger reads the same scroll position.
+function smoothScroll() {
+  const lenis = new Lenis({ autoRaf: false, lerp: 0.11 });
+  lenis.on("scroll", ScrollTrigger.update);
+  const raf = (time) => lenis.raf(time * 1000);
+  gsap.ticker.add(raf);
+  gsap.ticker.lagSmoothing(0);
+  return () => { gsap.ticker.remove(raf); lenis.destroy(); };
 }
 
 function heroParallax() {
@@ -259,6 +272,7 @@ export default function Motion() {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       document.documentElement.classList.add("motion");
+      const offSmooth = smoothScroll();
       heroIntro();
       scrollProgress();
       sheets();
@@ -273,6 +287,7 @@ export default function Motion() {
       document.fonts?.ready.then(refresh);
       return () => {
         document.documentElement.classList.remove("motion");
+        offSmooth();
         offParallax?.();
         offTilt?.();
         window.removeEventListener("load", refresh);
