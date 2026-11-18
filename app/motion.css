@@ -27,65 +27,6 @@
 .visual-return .visual-caption{color:#d4d0c6}
 .visual-verdict .visual-label,.visual-verdict .visual-caption,.visual-court .visual-label,.visual-court .visual-caption{color:#bdb6a8}
 
-/* The enemy definer */
-.enemy{padding:13vh 10vw 6vh;border-top:1px solid var(--line)}
-.enemy-head{max-width:760px}
-.enemy-head h2{font:600 clamp(40px,5.6vw,78px)/1.04 var(--serif);letter-spacing:-.05em;margin:30px 0}
-.enemy-head h2 em{font-weight:500;color:var(--red)}
-.enemy-head>p:last-child{max-width:520px;color:#55534e;line-height:1.75;font-size:16px}
-.enemy-stage{display:grid;grid-template-columns:minmax(320px,1.05fr) minmax(280px,.95fr);gap:6vw;margin-top:9vh;align-items:start}
-.enemy-sticky{position:sticky;top:88px;display:flex;flex-direction:column;gap:16px}
-.enemy-nav{display:flex;flex-wrap:wrap;gap:6px}
-.enemy-nav button{all:unset;box-sizing:border-box;cursor:pointer;width:34px;height:26px;display:grid;place-items:center;font:11px var(--mono);letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);transition:background .25s,color .25s,border-color .25s}
-.enemy-nav button:hover{border-color:var(--ink);color:var(--ink)}
-.enemy-nav button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.enemy-nav button.is-past{color:var(--ink);border-color:rgba(25,25,22,.45)}
-.enemy-nav button.is-active{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.enemy-figure{margin:0;background:#d9d5ca;padding:20px 20px 14px}
-.enemy-svg{display:block;width:100%;height:auto}
-.dot{fill:#9a968b}
-.dot-ring{fill:none;stroke:var(--red);stroke-width:2;opacity:0}
-.enemy-legend{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#55524c}
-.enemy-legend li{display:flex;align-items:center;gap:7px}
-.swatch{display:inline-block;width:10px;height:10px;border-radius:50%}
-.swatch-neutral{background:#9a968b}.swatch-named,.swatch-killed{background:var(--red)}.swatch-suspended{background:var(--amber)}.swatch-counted{background:var(--ink)}
-.swatch-ring{border:2px solid var(--red)}
-.enemy-stat{display:flex;align-items:baseline;gap:14px;min-height:54px;opacity:0;transform:translateY(8px)}
-.enemy-stat strong{font:600 clamp(36px,4vw,54px)/1 var(--serif);letter-spacing:-.04em;color:var(--red);font-variant-numeric:tabular-nums}
-.enemy-stat span{font:11px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#55524c;max-width:260px}
-.enemy-disclaimer{margin:0;font:11px/1.5 var(--mono);color:var(--muted);letter-spacing:.05em}
-.enemy-steps{list-style:none;margin:0;padding:0}
-.enemy-steps li{min-height:80vh;display:flex;flex-direction:column;justify-content:center;max-width:440px;opacity:.25;transition:opacity .5s ease}
-.enemy-steps li.is-active{opacity:1}
-.enemy-steps li:first-child{min-height:60vh}
-.enemy-steps li:last-child{min-height:90vh}
-.enemy-date{margin:0;font:11px var(--mono);letter-spacing:.1em;color:var(--red)}
-.enemy-steps h3{font:600 clamp(28px,3.2vw,42px)/1.1 var(--serif);letter-spacing:-.04em;margin:18px 0}
-.enemy-steps li>p:not(.enemy-date){color:#5e5b55;line-height:1.75;font-size:15px;margin:0 0 14px}
-.enemy-steps .fact-note{border-left:2px solid var(--red);padding-left:15px;font-size:12px!important;line-height:1.55!important;color:#5a5852!important;margin-top:10px!important}
-.enemy-source{align-self:flex-start;margin-top:6px;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:4px}
-.enemy-source span{color:var(--red)}
-.enemy-source:hover{color:var(--red)}
-.timeline.after{padding-top:0;border-top:1px solid var(--line)}
-.timeline.after .timeline-head{padding-top:9vh}
-
-@media(max-width:900px){
-  .enemy{padding:11vh 7vw 4vh}
-  .enemy-stage{grid-template-columns:1fr;gap:0;margin-top:6vh}
-  .enemy-sticky{top:0;z-index:5;background:var(--paper);padding:10px 0;gap:8px}
-  .enemy-figure{padding:10px 10px 8px}
-  .enemy-svg{max-height:26vh}
-  .enemy-legend{margin-top:8px}
-  .enemy-stat{min-height:40px}
-  .enemy-steps li{min-height:50vh;justify-content:flex-start;padding-top:4vh}
-  .enemy-steps li:last-child{min-height:70vh}
-  .enemy-stat.is-empty{display:none}
-}
-@media(max-width:560px){.enemy-disclaimer{font-size:11px}.enemy-legend{gap:4px 12px;font-size:11px}}
-@media(prefers-reduced-motion:reduce){
-  .enemy-steps li{transition:none}
-}
-
 /* Language switch */
 .top-right{display:flex;align-items:center;gap:22px}
 .lang{display:flex;border:1px solid var(--line)}
@@ -156,18 +97,6 @@ html{scroll-padding-top:calc(var(--bar) + 12px)}
 /* Contrast on the dark band */
 .band .eyebrow{color:#e8695d}
 
-/* Dot-field step controls: one 44px target each, a bar that fills as the story advances */
-.enemy-nav{gap:2px;flex-wrap:nowrap}
-.enemy-nav button{flex:1 1 0;min-width:0;width:auto;height:auto;min-height:44px;display:flex;flex-direction:column;align-items:stretch;place-items:normal;justify-content:flex-end;gap:8px;padding:0 2px 8px;border:0;background:none;font:11px var(--mono);letter-spacing:.06em;color:var(--muted);text-align:left}
-.enemy-nav button i{display:block;height:4px;background:rgba(25,25,22,.22);transition:background .3s}
-.enemy-nav button:hover i{background:rgba(25,25,22,.5)}
-.enemy-nav button.is-past i{background:rgba(25,25,22,.6)}
-.enemy-nav button.is-active i{background:var(--red)}
-.enemy-nav button.is-active,.enemy-nav button.is-past{background:none;color:var(--ink);border:0}
-.enemy-nav button span{white-space:nowrap;overflow:hidden}
-.enemy-steps li{opacity:.5}
-.enemy-sticky{top:calc(var(--bar) + 20px)}
-
 /* Mobile: stack the timeline (date above the panel) and fade the pinned chart */
 @media(max-width:900px){
   .chapter{grid-template-columns:minmax(0,1fr);gap:18px;padding:6vh 7vw}
@@ -176,10 +105,6 @@ html{scroll-padding-top:calc(var(--bar) + 12px)}
   .chapter-date span{display:inline;margin-top:0}
   .chapter-visual{grid-column:1;grid-row:2;height:300px}
   .chapter-copy{grid-column:1;grid-row:3;max-width:none;padding:6px 0}
-  .enemy-sticky{top:var(--bar)}
-  .enemy-sticky::after{content:"";position:absolute;left:0;right:0;bottom:-28px;height:28px;background:linear-gradient(var(--paper),rgba(233,229,219,0));pointer-events:none}
-  .enemy-nav button span{display:none}
-  .enemy-nav button{justify-content:center;padding-bottom:0}
 }
 @media(max-width:560px){.chapter{grid-template-columns:minmax(0,1fr)}.chapter-visual{height:260px}}
 
