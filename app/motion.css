@@ -15,7 +15,7 @@
 
 /* Split text */
 .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
-.ln>span{display:block}
+.ln>span{display:block;text-wrap:balance}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
 .w>span{display:inline-block}
 .context-statement>span{background:linear-gradient(var(--red),var(--red)) 0 100%/calc(var(--underline,0)*100%) 3px no-repeat;padding-bottom:4px}
@@ -85,3 +85,12 @@
 @media(prefers-reduced-motion:reduce){
   .enemy-steps li{transition:none}
 }
+
+/* Language switch */
+.top-right{display:flex;align-items:center;gap:22px}
+.lang{display:flex;border:1px solid var(--line)}
+.lang a{display:block;padding:5px 9px;font:10px var(--mono);letter-spacing:.1em;text-decoration:none;color:var(--muted);transition:background .25s,color .25s}
+.lang a:hover{color:var(--ink)}
+.lang a[aria-current="true"]{background:var(--ink);color:var(--paper)}
+.lang a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media(max-width:560px){.top-right{gap:12px}.lang a{padding:5px 7px}}

@@ -11,6 +11,14 @@ npm run dev
 
 The story separates allegations, judicial decisions and the eventual outcome. Pinochet was not extradited to Spain and did not stand trial there.
 
+## Languages
+
+Spanish is the default (`/`), English lives at `/en` (`/es` redirects to `/`). Routing follows the Next.js internationalization guide: `app/[lang]` with static params, no runtime library.
+
+- Language-independent structure (visuals, dot counts, links) is in `app/data.js`.
+- All visible text is in `app/i18n/es.js` and `app/i18n/en.js`, same shape and order; `getContent()` in `app/i18n/index.js` merges them.
+- To add a language, add `app/i18n/<code>.js`, register it in `app/i18n/index.js`, and the routes, metadata and switcher follow.
+
 ## Sources
 
 - [House of Lords judgment, 24 March 1999](https://publications.parliament.uk/pa/ld199899/ldjudgmt/jd990324/pino1.htm)

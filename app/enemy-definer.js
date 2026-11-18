@@ -2,7 +2,6 @@
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { enemyStages } from "./data";
 
 const COLS = 24;
 const ROWS = 15;
@@ -64,7 +63,7 @@ const Field = memo(function Field() {
   );
 });
 
-export default function EnemyDefiner() {
+export default function EnemyDefiner({ stages, locale, t }) {
   const [active, setActive] = useState(0);
   const rootRef = useRef(null);
   const statRef = useRef(null);
@@ -92,7 +91,7 @@ export default function EnemyDefiner() {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const stage = enemyStages[active];
+    const stage = stages[active];
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const dots = root.querySelectorAll(".dot");
     const rings = root.querySelectorAll(".dot-ring");
@@ -146,34 +145,34 @@ export default function EnemyDefiner() {
             v: target,
             duration: reduce ? 0 : target > 1000 ? 1.6 : 0.8,
             ease: "power2.out",
-            onUpdate: () => { valueEl.textContent = Math.round(counter.current.v).toLocaleString("en-US"); },
+            onUpdate: () => { valueEl.textContent = Math.round(counter.current.v).toLocaleString(locale); },
           });
         } else {
           gsap.to(statEl, { opacity: 0, y: 8, duration: reduce ? 0 : 0.3 });
         }
       }
     }
-  }, [active]);
+  }, [active, locale]);
 
   const goTo = useCallback((i) => {
     const step = rootRef.current?.querySelector(`[data-step="${i}"]`);
     step?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
   }, []);
 
-  const stage = enemyStages[active];
+  const stage = stages[active];
 
   return (
-    <section className="enemy" id="enemy" ref={rootRef} aria-label="How the enemy was defined, 1973 to 2011">
+    <section className="enemy" id="enemy" ref={rootRef} aria-label={t.aria}>
       <div className="enemy-head">
-        <p className="eyebrow"><span>02</span> Before the warrant</p>
-        <h2>To read the warrant,<br />first read the <em>enemy list.</em></h2>
-        <p>The warrant in London answered a question that began in Chile in 1973: who, exactly, was the enemy? Scroll through the decrees and watch one word — “Marxist” — grow until it covers a country.</p>
+        <p className="eyebrow"><span>02</span> {t.eyebrow}</p>
+        <h2>{t.h2[0]}<br />{t.h2[1]}<em>{t.h2[2]}</em></h2>
+        <p>{t.intro}</p>
       </div>
 
       <div className="enemy-stage">
         <div className="enemy-sticky">
-          <nav className="enemy-nav" aria-label="Steps">
-            {enemyStages.map((s, i) => (
+          <nav className="enemy-nav" aria-label={t.nav}>
+            {stages.map((s, i) => (
               <button key={s.key} type="button" aria-current={i === active ? "step" : undefined} aria-label={`${s.date}: ${s.title}`} onClick={() => goTo(i)} className={i === active ? "is-active" : i < active ? "is-past" : ""}>
                 <span>{String(i + 1).padStart(2, "0")}</span>
               </button>
@@ -193,11 +192,11 @@ export default function EnemyDefiner() {
             <strong ref={statValueRef}>0</strong>
             <span>{stage.stat?.label ?? ""}</span>
           </div>
-          <p className="enemy-disclaimer">{stage.mode === "count" ? "Each dot ≈ 111 recognised victims (40,018 ÷ 360)." : "Illustrative field — not to scale. Every dot is one person."}</p>
+          <p className="enemy-disclaimer">{stage.mode === "count" ? t.disclaimerCount : t.disclaimer}</p>
         </div>
 
         <ol className="enemy-steps">
-          {enemyStages.map((s, i) => (
+          {stages.map((s, i) => (
             <li key={s.key} data-step={i} className={i === active ? "is-active" : ""}>
               <p className="enemy-date">{s.date}</p>
               <h3>{s.title}</h3>
