@@ -1,4 +1,4 @@
-import { chapterVisuals, afterVisuals, stageBase, sourceHrefs } from "../data";
+import { chapterVisuals, afterVisuals, stageBase, sourceBase } from "../data";
 import es from "./es";
 import en from "./en";
 
@@ -34,9 +34,15 @@ export function getContent(lang) {
         mode: base.mode,
         stat: base.statValue ? { value: base.statValue, label: t.statLabel } : undefined,
         legend: base.legend.map((kind, j) => [kind, t.legend?.[j] ?? c.legendText[kind]]),
-        source: base.sourceHref ? { label: t.source, href: base.sourceHref } : undefined,
+        source: t.source ? { label: t.source, href: t.sourceHref ?? base.sourceHref } : undefined,
       };
     }),
-    sources: sourceHrefs.map((href, i) => ({ href, ...c.sources[i] })),
+    sources: sourceBase
+      .map((s, idx) => {
+        const tagged = s.lang === lang ? c.sources[idx].detail : `${c.sources[idx].detail} (${c.ui.langTag[s.lang]})`;
+        return { href: s.href, lang: s.lang, title: c.sources[idx].title, detail: tagged };
+      })
+      // Sources in the reader's own language first; the sort is stable so the rest keeps its order.
+      .sort((a, b) => Number(b.lang === lang) - Number(a.lang === lang)),
   };
 }
