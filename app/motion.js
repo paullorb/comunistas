@@ -122,53 +122,66 @@ function headings() {
   });
 }
 
-// One scrubbed micro-animation per chapter scene, keyed on the visual's type class.
+// One scrubbed micro-animation per chapter scene, keyed on the visual's type class. Targets are the
+// "sc-" hooks inside app/scenes.js; animated groups carry no transform attribute of their own.
+const $ = (el, sel) => el.querySelector(sel);
+const $$ = (el, sel) => [...el.querySelectorAll(sel)];
+
 const SCENES = {
   coup(el, tl) {
-    tl.fromTo(el.querySelector(".smoke"), { y: 30, scale: 0.6, opacity: 0.1 }, { y: -70, scale: 1.9, opacity: 0.65, ease: "none" }, 0)
-      .fromTo(el.querySelectorAll(".palace i"), { scaleY: 0.2, transformOrigin: "bottom" }, { scaleY: 1, stagger: 0.08, ease: "none" }, 0);
+    tl.fromTo($(el, ".sc-smoke"), { y: 40, scale: 0.7, opacity: 0.2, transformOrigin: "50% 100%" }, { y: -24, scale: 1.15, opacity: 1 }, 0)
+      .fromTo($$(el, ".sc-jet"), { x: -90, y: -30, opacity: 0 }, { x: 0, y: 0, opacity: 1, stagger: 0.15 }, 0)
+      .fromTo($(el, ".sc-traj"), { strokeDashoffset: 1 }, { strokeDashoffset: 0 }, 0.2)
+      .fromTo($(el, ".sc-building"), { y: 18 }, { y: 0 }, 0);
   },
   arrival(el, tl) {
-    tl.fromTo(el.querySelector(".arrival-line"), { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, ease: "none" }, 0)
-      .fromTo(el.querySelector(".plane"), { x: -150, y: 40, rotation: -35, opacity: 0.2 }, { x: 150, y: -50, rotation: -12, opacity: 1, ease: "none" }, 0);
+    tl.fromTo($(el, ".sc-plane"), { x: 90, y: -50, opacity: 0.2 }, { x: 0, y: 0, opacity: 1 }, 0)
+      .fromTo($(el, ".sc-approach"), { strokeDashoffset: 1 }, { strokeDashoffset: 0 }, 0.1)
+      .fromTo($(el, ".sc-center"), { strokeDashoffset: 60 }, { strokeDashoffset: 0 }, 0);
   },
   arrest(el, tl) {
-    tl.fromTo(el.querySelector(".paper-stack"), { rotation: -14, x: -40, opacity: 0.4 }, { rotation: -5, x: 0, opacity: 1, ease: "none", duration: 0.6 }, 0)
-      .fromTo(el.querySelector(".stamp"), { scale: 3.2, opacity: 0, rotation: -4 }, { scale: 1, opacity: 1, rotation: -13, ease: "power4.in", duration: 0.25 }, 0.6);
+    tl.fromTo($(el, ".sc-glow"), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0)
+      .fromTo($(el, ".sc-paper"), { rotation: -10, x: 50, opacity: 0.2, transformOrigin: "50% 50%" }, { rotation: 0, x: 0, opacity: 1, duration: 0.6 }, 0)
+      .fromTo($(el, ".sc-stamp"), { scale: 3, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.25, ease: "power4.in" }, 0.65);
   },
   court(el, tl) {
-    const vote = el.querySelector(".vote");
+    const vote = $(el, ".sc-vote");
     const state = { a: 0, b: 0 };
-    tl.fromTo(el.querySelectorAll(".bench i"), { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: 0.12, ease: "none", duration: 0.5 }, 0)
-      .to(state, { a: 3, b: 2, ease: "none", duration: 0.5, onUpdate: () => { if (vote) vote.textContent = `${Math.round(state.a)} : ${Math.round(state.b)}`; } }, 0.5);
+    tl.fromTo($$(el, ".sc-lord"), { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.12, duration: 0.4 }, 0)
+      .to(state, { a: 3, b: 2, duration: 0.5, onUpdate: () => { if (vote) vote.textContent = `${Math.round(state.a)} : ${Math.round(state.b)}`; } }, 0.5);
   },
   ruling(el, tl) {
-    tl.fromTo(el.querySelector(".ruling-sheet"), { rotation: 14, y: 60, opacity: 0.2 }, { rotation: 4, y: 0, opacity: 1, ease: "none", duration: 0.5 }, 0)
-      .fromTo(el.querySelectorAll(".ruling-sheet i"), { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, stagger: 0.12, ease: "none", duration: 0.4 }, 0.5)
-      .fromTo(el.querySelector(".ruling-sheet strong"), { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", ease: "none", duration: 0.4 }, 0.3);
+    tl.fromTo($(el, ".sc-sheet"), { y: 60, rotation: 8, opacity: 0.2, transformOrigin: "50% 50%" }, { y: 0, rotation: 0, opacity: 1, duration: 0.5 }, 0)
+      .fromTo($$(el, ".sc-line"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, stagger: 0.1, duration: 0.3 }, 0.3)
+      .fromTo($$(el, ".sc-strike"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, stagger: 0.1, duration: 0.25 }, 0.6)
+      .fromTo($(el, ".sc-seal"), { scale: 3, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.2, ease: "power4.in" }, 0.85);
   },
   commit(el, tl) {
-    tl.fromTo(el.querySelector(".door"), { scaleX: 0.55, transformOrigin: "left center" }, { scaleX: 1, ease: "none", duration: 0.6 }, 0)
-      .fromTo(el.querySelector(".arrow"), { x: -90, opacity: 0 }, { x: 0, opacity: 1, ease: "none", duration: 0.5 }, 0.5);
+    tl.fromTo($(el, ".sc-leaf-l"), { scaleX: 1, transformOrigin: "0% 50%" }, { scaleX: 0.12, duration: 0.6 }, 0.1)
+      .fromTo($(el, ".sc-leaf-r"), { scaleX: 1, transformOrigin: "100% 50%" }, { scaleX: 0.12, duration: 0.6 }, 0.1)
+      .fromTo($(el, ".sc-light"), { opacity: 0 }, { opacity: 0.9, duration: 0.5 }, 0.1)
+      .fromTo($(el, ".sc-arrow"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.6 }, 0.4)
+      .fromTo($(el, ".sc-arrow-head"), { opacity: 0 }, { opacity: 1, duration: 0.1 }, 0.95);
   },
   end(el, tl) {
-    tl.fromTo(el.querySelector(".departure"), { y: 50, opacity: 0 }, { y: 0, opacity: 1, ease: "none", duration: 0.5 }, 0)
-      .fromTo(el.querySelector(".end-line"), { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, ease: "none", duration: 0.6 }, 0.4);
+    tl.fromTo($(el, ".sc-board"), { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0)
+      .fromTo($(el, ".sc-climb"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7 }, 0.2)
+      .fromTo($(el, ".sc-plane2"), { x: -220, y: 190, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 0.7 }, 0.2);
   },
   return(el, tl) {
-    tl.fromTo(el.querySelector(".sv-plane"), { x: -220, y: -40 }, { x: 0, y: 0, ease: "none", duration: 0.5 }, 0)
-      .fromTo(el.querySelector(".sv-figure"), { y: 22, scaleY: 0.72, transformOrigin: "bottom" }, { y: 0, scaleY: 1, ease: "back.out(2)", duration: 0.3 }, 0.6);
+    tl.fromTo($(el, ".sc-chair"), { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.3 }, 0)
+      .fromTo($(el, ".sc-figure"), { y: 24, scaleY: 0.72, transformOrigin: "50% 100%" }, { y: 0, scaleY: 1, duration: 0.4, ease: "back.out(2)" }, 0.5);
   },
   immunity(el, tl) {
-    tl.fromTo(el.querySelector(".sv-shield"), { opacity: 0.2, scale: 0.9, transformOrigin: "center" }, { opacity: 1, scale: 1, ease: "none", duration: 0.3 }, 0)
-      .fromTo(el.querySelector(".sv-crack"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none", duration: 0.5 }, 0.3)
-      .fromTo(el.querySelector(".sv-bar-yes"), { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, ease: "none", duration: 0.4 }, 0.6)
-      .fromTo(el.querySelector(".sv-bar-no"), { scaleX: 0, transformOrigin: "left" }, { scaleX: 1, ease: "none", duration: 0.4 }, 0.6);
+    tl.fromTo($(el, ".sc-shield"), { opacity: 0.2 }, { opacity: 1, duration: 0.3 }, 0)
+      .fromTo($(el, ".sc-crack"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.5 }, 0.25)
+      .fromTo($$(el, ".sc-person"), { scale: 0, transformOrigin: "50% 100%" }, { scale: 1, stagger: 0.03, duration: 0.2, ease: "back.out(2)" }, 0.5);
   },
   verdict(el, tl) {
-    tl.fromTo(el.querySelector(".sv-dock"), { opacity: 0.3 }, { opacity: 1, ease: "none", duration: 0.3 }, 0)
-      .fromTo(el.querySelector(".sv-open-line"), { strokeDashoffset: 1 }, { strokeDashoffset: 0.28, ease: "none", duration: 0.7 }, 0.2)
-      .fromTo(el.querySelector(".sv-verdict"), { opacity: 0 }, { opacity: 1, ease: "none", duration: 0.3 }, 0.7);
+    tl.fromTo($(el, ".sc-beam"), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0)
+      .fromTo($(el, ".sc-dock"), { opacity: 0.3 }, { opacity: 1, duration: 0.3 }, 0)
+      .fromTo($(el, ".sc-open"), { strokeDashoffset: 1 }, { strokeDashoffset: 0.26, duration: 0.7 }, 0.2)
+      .fromTo($(el, ".sc-verdict"), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.7);
   },
 };
 
@@ -179,7 +192,7 @@ function chapterScenes() {
     if (!build) return;
     const tl = gsap.timeline({
       defaults: { ease: "none" },
-      scrollTrigger: { trigger: el, start: "top 88%", end: "bottom 38%", scrub: 0.7 },
+      scrollTrigger: { trigger: el, start: "top 88%", end: "center 45%", scrub: 0.7 },
     });
     build(el, tl);
   });

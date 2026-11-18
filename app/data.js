@@ -6,7 +6,7 @@ export const chapterVisuals = ["coup", "arrival", "arrest", "court", "ruling", "
 export const afterVisuals = ["return", "immunity", "verdict"];
 
 // The enemy definer. `named` / `suspended` are counts of dots (of 360) in each state; the field
-// is illustrative and not to scale until the last step, where each dot ≈ 111 people.
+// is illustrative until the last step; the canvas holds 40,018 dots, one per recognised victim.
 // `sourceHref` is the default link; a language can override it with `sourceHref` in its copy
 // (e.g. the Spanish page links Spanish-language sources where they exist).
 export const stageBase = [
