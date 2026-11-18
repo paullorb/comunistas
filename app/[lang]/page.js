@@ -169,6 +169,7 @@ export default async function Home({ params }) {
           {locales.map((code) => <a key={code} href={localePath(code)} lang={code} hrefLang={code} aria-current={code === lang ? "true" : undefined}>{code === "es" ? "Español" : "English"}</a>)}
           <a href="#top">{ui.footer.top}</a>
         </nav>
+        <p className="foot-word" aria-hidden="true"><span>comunistas<i>.</i></span></p>
       </footer>
     </main>
   );
