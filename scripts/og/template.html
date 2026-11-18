@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1200px;height:630px;background:#e9e5db;color:#191916;font-family:"DM Sans",sans-serif;position:relative;overflow:hidden}
+.mark{position:absolute;left:72px;top:64px;display:flex;align-items:center;gap:14px;font-weight:700;font-size:26px}
+.mark i{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#bf2727;color:#f4efe4;font:700 25px "Playfair Display",serif;font-style:normal}
+.eyebrow{position:absolute;left:72px;top:176px;font:500 17px "DM Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#bf2727}
+h1{position:absolute;left:72px;top:214px;width:640px;font:700 84px/.98 "Playfair Display",serif;letter-spacing:-.045em}
+h1 em{font-weight:500;color:#bf2727}
+.sub{position:absolute;left:72px;bottom:62px;width:560px;font:500 22px/1.45 "DM Sans",sans-serif;color:#4d4b45}
+.art{position:absolute;right:0;top:0;width:430px;height:630px;background:#d4d1c8;overflow:hidden}
+.city{position:absolute;bottom:0;display:flex;align-items:flex-end;gap:12px}
+.city i{display:block;width:62px;background:#272723;position:relative}
+.city i:before{content:"";position:absolute;inset:14px 11px;background:repeating-linear-gradient(90deg,#b4ada0 0 4px,transparent 4px 16px),repeating-linear-gradient(0deg,transparent 0 17px,#b4ada0 17px 20px)}
+.line{position:absolute;left:-40px;top:300px;width:540px;height:11px;background:#bf2727;transform:rotate(-13deg)}
+.warrant{position:absolute;left:62px;top:96px;width:250px;height:340px;background:#ece8dc;padding:26px 22px;transform:rotate(-7deg);box-shadow:10px 14px 34px #0003;display:flex;flex-direction:column}
+.warrant span,.warrant small{font:11px "DM Mono",monospace;letter-spacing:.08em;color:#6a665c}
+.warrant strong{font:700 30px/.98 "Playfair Display",serif;margin:32px 0 20px}
+.warrant b{align-self:flex-end;margin-top:auto;border:2px solid #bf2727;color:#bf2727;font:500 15px "DM Mono",monospace;padding:8px 11px;transform:rotate(-9deg)}
+</style></head><body>
+<div class="mark"><i>C.</i> comunistas</div>
+<div class="eyebrow" id="eyebrow"></div>
+<h1 id="title"></h1>
+<div class="sub" id="sub"></div>
+<div class="art">
+  <div class="city" style="left:30px"><i style="height:210px"></i><i style="height:300px"></i><i style="height:250px"></i><i style="height:360px;width:76px"></i></div>
+  <div class="line"></div>
+  <div class="warrant"><span id="org"></span><strong id="wt"></strong><small id="wd"></small><b id="stamp"></b></div>
+</div>
+<script>
+const L={
+ es:{eyebrow:"Historia 001 · Derechos humanos",title:'El expediente <em>Pinochet</em>',sub:"Cómo una dictadura definió a su enemigo, y cómo una orden de detención en Londres lo puso a prueba.",org:"POLICÍA METROPOLITANA",wt:"ORDEN<br>PROVISIONAL",wd:"16 DE OCTUBRE DE 1998<br>LONDRES",stamp:"DETENIDO"},
+ en:{eyebrow:"Story 001 · Human rights",title:'The <em>Pinochet</em> File',sub:"How a dictatorship defined its enemy, and how a warrant in London put it to the test.",org:"METROPOLITAN POLICE",wt:"PROVISIONAL<br>WARRANT",wd:"16 OCTOBER 1998<br>LONDON",stamp:"HELD"}};
+const l=L[new URLSearchParams(location.search).get("lang")||"es"];
+eyebrow.textContent=l.eyebrow;title.innerHTML=l.title;sub.textContent=l.sub;org.textContent=l.org;wt.innerHTML=l.wt;wd.innerHTML=l.wd;stamp.textContent=l.stamp;
+</script></body></html>

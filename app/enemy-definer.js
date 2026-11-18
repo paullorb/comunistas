@@ -57,7 +57,7 @@ const Field = memo(function Field() {
         <circle key={i} className="dot" cx={px(i)} cy={py(i)} r="6.4" />
       ))}
       {RING_DOTS.map((i) => (
-        <circle key={`ring-${i}`} className="dot-ring" data-ring={i} cx={px(i)} cy={py(i)} r="13" />
+        <circle key={`ring-${i}`} className="dot-ring" data-ring={i} cx={px(i)} cy={py(i)} r="30" />
       ))}
     </svg>
   );
@@ -116,8 +116,8 @@ export default function EnemyDefiner({ stages, locale, t }) {
         });
         gsap.fromTo(
           changed,
-          { scale: 1.9 },
-          { scale: 1, duration: 0.7, ease: "back.out(2.4)", stagger: { amount: 0.9, from: "center" }, overwrite: "auto" },
+          { attr: { r: 11 } },
+          { attr: { r: 6.4 }, duration: 0.7, ease: "back.out(2.4)", stagger: { amount: 0.9, from: "center" }, overwrite: "auto" },
         );
       }
 
@@ -126,7 +126,7 @@ export default function EnemyDefiner({ stages, locale, t }) {
         const shown = stage.rings?.includes(Number(ring.dataset.ring));
         gsap.to(ring, {
           opacity: shown ? 1 : 0,
-          scale: shown ? 1 : 2.4,
+          attr: { r: shown ? 13 : 30 },
           duration: reduce ? 0 : 0.7,
           ease: "power3.out",
         });

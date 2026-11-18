@@ -3,6 +3,8 @@ import "../globals.css";
 import "../motion.css";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
+export const viewport = { themeColor: "#e9e5db" };
+
 // Only the declared languages exist; anything else under /[lang] is a 404.
 export const dynamicParams = false;
 
@@ -26,8 +28,17 @@ export async function generateMetadata({ params }) {
       title: ui.title,
       description: ui.ogDescription,
       type: "article",
+      siteName: "Comunistas",
+      url: localePath(lang),
       locale: lang === "es" ? "es_CL" : "en_US",
       alternateLocale: lang === "es" ? ["en_US"] : ["es_CL"],
+      images: [{ url: `/og/og-${lang}.png`, width: 1200, height: 630, alt: ui.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ui.title,
+      description: ui.description,
+      images: [`/og/og-${lang}.png`],
     },
   };
 }

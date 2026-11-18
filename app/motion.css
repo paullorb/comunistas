@@ -14,9 +14,9 @@
 @media(max-width:1100px){.rail{display:none}}
 
 /* Split text */
-.ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.ln{display:block;overflow:hidden;padding:0 .16em .12em;margin:0 -.16em -.12em}
 .ln>span{display:block;text-wrap:balance}
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .14em .14em;margin:0 -.14em -.14em}
 .w>span{display:inline-block}
 .context-statement>span{background:linear-gradient(var(--red),var(--red)) 0 100%/calc(var(--underline,0)*100%) 3px no-repeat;padding-bottom:4px}
 .chapter-detail{font:11px/1.6 var(--mono)!important;color:var(--ink)!important;margin-top:22px;letter-spacing:.01em}
@@ -43,8 +43,8 @@
 .enemy-nav button.is-active{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .enemy-figure{margin:0;background:#d9d5ca;padding:20px 20px 14px}
 .enemy-svg{display:block;width:100%;height:auto}
-.dot{fill:#9a968b;transform-box:fill-box;transform-origin:center}
-.dot-ring{fill:none;stroke:var(--red);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
+.dot{fill:#9a968b}
+.dot-ring{fill:none;stroke:var(--red);stroke-width:2;opacity:0}
 .enemy-legend{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px;font:9.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#55524c}
 .enemy-legend li{display:flex;align-items:center;gap:7px}
 .swatch{display:inline-block;width:10px;height:10px;border-radius:50%}
@@ -94,3 +94,30 @@
 .lang a[aria-current="true"]{background:var(--ink);color:var(--paper)}
 .lang a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 @media(max-width:560px){.top-right{gap:12px}.lang a{padding:5px 7px}}
+
+/* Mobile hero: put the illustration in the first screen, keep the caption clear of the warrant */
+@media(max-width:900px){
+  .hero{gap:18px;padding:5vh 7vw 9vh}
+  .hero-copy{display:contents}
+  .hero .eyebrow{order:1;margin:0}
+  .hero h1{order:2;margin:0}
+  .hero-art{order:3;height:min(52vh,400px);min-height:340px}
+  .hero .intro{order:4;margin:0}
+  .hero .scroll-link{order:5;margin-top:8px}
+  .warrant{top:9%}
+  .art-caption{left:14px;right:14px;bottom:12px;text-align:left}
+}
+@media(max-width:560px){.hero h1{font-size:clamp(44px,13vw,54px)}}
+
+/* Branded 404 */
+.nf-body{min-height:100svh}
+.nf{position:relative;min-height:100svh;padding:48px 7vw 8vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.nf .wordmark{position:absolute;top:28px;left:7vw}
+.nf h1{font:600 clamp(44px,8vw,112px)/1 var(--serif);letter-spacing:-.05em;margin:24px 0}
+.nf h1 em{font-weight:500;color:var(--red)}
+.nf-line{display:block}
+.nf-en{font:12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 36px}
+.nf-links{display:flex;flex-wrap:wrap;gap:12px 32px;font:12px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.nf-links a{text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:6px}
+.nf-links span{color:var(--red)}
+.nf-line-art{position:absolute;left:-5%;bottom:14%;width:110%;height:8px;background:var(--red);transform:rotate(-6deg);opacity:.9;z-index:-1}
