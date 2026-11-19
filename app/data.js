@@ -13,7 +13,9 @@ export const afterVisuals = ["return", "immunity", "verdict"];
 // addends match no official figure, so it is not used.
 export const VICTIMS = { killed: 3227, survivors: 38254, total: 41481 };
 
-const leyChile = (id) => `https://www.bcn.cl/leychile/navegar?idNorma=${id}`;
+// BCN shows a norm as currently in force unless a version is given; pass the publication date to
+// pin the text the story quotes (the original Article 8, the original list of parties in DL 77).
+const leyChile = (id, version) => `https://www.bcn.cl/leychile/navegar?idNorma=${id}${version ? `&idVersion=${version}` : ""}`;
 const VALECH_II = "https://bibliotecadigital.indh.cl/handle/123456789/600";
 
 // The enemy definer. `named` / `suspended` are counts of dots (of 360) in each state; the field
@@ -22,7 +24,7 @@ const VALECH_II = "https://bibliotecadigital.indh.cl/handle/123456789/600";
 export const stageBase = [
   { key: "before", named: 0, suspended: 0, legend: ["neutral"] },
   { key: "coup", named: 36, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(237897) },
-  { key: "dl77", named: 86, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(5730) },
+  { key: "dl77", named: 86, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(5730, "1973-10-13") },
   { key: "dl78", named: 86, suspended: 144, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(5731) },
   {
     key: "prats", named: 86, suspended: 144, rings: [69], legend: ["neutral", "named", "suspended", "ring"],
@@ -34,7 +36,7 @@ export const stageBase = [
   },
   { key: "dl1697", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(6723) },
   { key: "dl2191", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(6849) },
-  { key: "art8", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(7129) },
+  { key: "art8", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(7129, "1980-08-11") },
   {
     key: "count", named: 0, suspended: 0, mode: "count", statValue: VICTIMS.total, legend: ["counted", "killed"],
     sourceHref: VALECH_II,
@@ -61,12 +63,12 @@ export const sourceBase = [
   { lang: "es", href: "https://www.lamoncloa.gob.es/consejodeministros/referencias/paginas/1998/c0611980.aspx" },
   // Chile: decrees, the 1980 Constitution and the Constitutional Tribunal
   { lang: "es", href: leyChile(237897) },
-  { lang: "es", href: leyChile(5730) },
+  { lang: "es", href: leyChile(5730, "1973-10-13") },
   { lang: "es", href: leyChile(5731) },
   { lang: "es", href: leyChile(6158) },
   { lang: "es", href: leyChile(6723) },
   { lang: "es", href: leyChile(6849) },
-  { lang: "es", href: leyChile(7129) },
+  { lang: "es", href: leyChile(7129, "1980-08-11") },
   { lang: "es", href: leyChile(30201) },
   { lang: "es", href: "https://buscador-backend.tcchile.cl/api/extended/21/download" },
   { lang: "en", href: "https://hrlibrary.umn.edu/iachr/country-reports/chile1974-ch12.html" },
