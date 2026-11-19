@@ -156,6 +156,7 @@ export default async function Home({ params }) {
         </div>
         <ol>{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer">{source.title}</a><span>{source.detail}</span></li>)}</ol>
         <p className="editorial-note">{ui.sources.editorial}</p>
+        {SITE.repo && <p className="editorial-note">{ui.sources.report[0]} <a href={`${SITE.repo}/issues/new/choose`} target="_blank" rel="noreferrer">{ui.sources.report[1]} <span aria-hidden="true">↗</span></a></p>}
       </section>
 
       <footer className="site-footer" aria-label={ui.footer.nav}>

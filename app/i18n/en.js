@@ -69,6 +69,7 @@ const en = {
       p: "This account follows court, parliamentary and official records where they exist, and names archival copies and press or secondary sources as such. It distinguishes allegations, legal rulings and the final outcome. Quotations from Spanish-language documents are our translation.",
       editorial:
         "Editorial note: “brought to justice” is often used to describe the case’s historical significance. Pinochet was not extradited and did not stand trial in Spain, and was never convicted. The enemy-list section is an editorial reading of the decrees it cites; the decrees and the victim counts are the documentary record. The figure of 41,481 is this site’s own sum of two official totals (3,227 and 38,254); the 40,018 common in press reports appears in no official report.",
+      report: ["Found a mistake, or know a better source?", "Propose a correction on GitHub"],
     },
     about: {
       eyebrow: "About the project",
@@ -234,8 +235,7 @@ const en = {
       short: "DL 77",
       date: "8 OCT 1973 · DECREE LAW 77",
       title: "A doctrine becomes a crime.",
-      body: "Decree Law 77, dated 8 October and published on the 13th, declared illegal and dissolved seven parties — Communist, Socialist, Popular Socialist Union, MAPU, Radical, Christian Left and Independent Popular Action — along with any entity “that upholds the Marxist doctrine”. The offence existed “by the mere fact of organising”. Its preamble declares that the new government bears “the mission of extirpating Marxism from Chile”: a doctrine, not an act, was now what the law set out to punish.",
-      note: "Quotations are our translation of the official Spanish text.",
+      body: "Decree Law 77, dated 8 October and published on the 13th, declared illegal and dissolved seven parties — Communist, Socialist, Popular Socialist Union, MAPU, Radical, Christian Left and Independent Popular Action — along with any entity “that upholds the Marxist doctrine”. The offence existed “by the mere fact of organising”. Its preamble declares that the new government bears “the mission of extirpating Marxism from Chile” (our translation): a doctrine, not an act, was now what the law set out to punish.",
       legend: ["A person", "Named: seven parties and “Marxism”"],
       source: "Ley Chile (BCN) — Decreto Ley 77, official text (in Spanish)",
     },
