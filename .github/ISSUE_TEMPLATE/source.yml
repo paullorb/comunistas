@@ -1,0 +1,23 @@
+name: Better source
+description: A claim cites press or an archival copy and you know where a stronger source is.
+labels: ["source"]
+body:
+  - type: textarea
+    id: claim
+    attributes:
+      label: Which claim or source entry
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to the stronger source
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: Where in the document, and what it says
+      description: Page, article or paragraph, with an exact quote in the original language.
+    validations:
+      required: true

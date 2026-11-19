@@ -71,11 +71,14 @@ html{scroll-padding-top:calc(var(--bar) + 12px)}
 /* Skip link and focus rings */
 .skip{position:absolute;left:12px;top:-80px;z-index:100;background:var(--ink);color:var(--paper);padding:14px 18px;font:12px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
 .skip:focus{top:calc(var(--bar) + 8px)}
+.skip-target{height:0;scroll-margin-top:var(--bar)}.skip-target:focus{outline:none}
 :focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:1px}
 .band :focus-visible,.closing :focus-visible,.sheet-panel :focus-visible{outline-color:#fff}
 
 /* Sticky top bar */
-.topbar{position:sticky;top:0;z-index:55;height:var(--bar);background:rgba(233,229,219,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.topbar{position:sticky;top:0;z-index:55;height:var(--bar)}
+/* Blur lives on a pseudo-element: a backdrop-filter on .topbar itself would become the containing block of the fixed section sheet. */
+.topbar::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(233,229,219,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .top-link{padding:14px 4px}
 .lang a{min-width:44px;min-height:44px;display:grid;place-items:center;padding:0 10px;font-size:11px}
 .wordmark{display:inline-flex;align-items:center;min-height:44px}

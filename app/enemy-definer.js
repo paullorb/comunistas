@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { VICTIMS } from "./data";
 import "./enemy.css";
 
-// The signature moment. One canvas holds 40,018 dots — exactly the number of victims Chile later
-// recognised (2011 Valech revision). While the label spreads, the field is a country; in the last
-// step every dot is a recognised victim and 3,065 of them (killed or disappeared) turn red.
-const N = 40018;
-const KILLED = 3065;
+// The signature moment. One canvas holds one dot per victim recognised by Chile's commissions
+// (see VICTIMS in data.js). While the label spreads, the field is a country; in the last step
+// every dot is a recognised victim and the killed or disappeared turn red.
+const N = VICTIMS.total;
+const KILLED = VICTIMS.killed;
 const BASE_TOTAL = 360; // the stage counts in app/data.js are expressed out of 360
 
 const BG = [25, 25, 22];
@@ -229,13 +230,23 @@ export default function EnemyDefiner({ stages, locale, t }) {
   useEffect(() => {
     const steps = rootRef.current?.querySelectorAll("[data-step]");
     if (!steps?.length || !("IntersectionObserver" in window)) return;
-    const mobile = window.matchMedia("(max-width: 900px)").matches;
-    const observer = new IntersectionObserver(
-      (entries) => { for (const entry of entries) if (entry.isIntersecting) setActive(Number(entry.target.dataset.step)); },
-      { rootMargin: mobile ? "-62% 0px -30% 0px" : "-45% 0px -45% 0px", threshold: 0 },
-    );
-    steps.forEach((step) => observer.observe(step));
-    return () => observer.disconnect();
+    let observer;
+    const observe = () => {
+      observer?.disconnect();
+      const mobile = window.matchMedia("(max-width: 900px)").matches;
+      const h = window.innerHeight;
+      // Pixel margins from the viewport height: percentage root margins can resolve against the width.
+      const top = Math.round(h * (mobile ? 0.62 : 0.45));
+      const bottom = Math.round(h * (mobile ? 0.3 : 0.45));
+      observer = new IntersectionObserver(
+        (entries) => { for (const entry of entries) if (entry.isIntersecting) setActive(Number(entry.target.dataset.step)); },
+        { rootMargin: `-${top}px 0px -${bottom}px 0px`, threshold: 0 },
+      );
+      steps.forEach((step) => observer.observe(step));
+    };
+    observe();
+    window.addEventListener("resize", observe);
+    return () => { window.removeEventListener("resize", observe); observer.disconnect(); };
   }, []);
 
   // The field and the counter respond to the active step.
@@ -263,8 +274,21 @@ export default function EnemyDefiner({ stages, locale, t }) {
   }, [active, stages, locale]);
 
   const goTo = useCallback((i) => {
-    const step = rootRef.current?.querySelector(`[data-step="${i}"]`);
-    step?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    const root = rootRef.current;
+    const step = root?.querySelector(`[data-step="${i}"]`);
+    if (!step) return;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    const field = root.querySelector(".enemy-field");
+    if (field && window.matchMedia("(max-width: 900px)").matches) {
+      // On mobile the field is pinned under the bar: centre the card in the space below it, not in the whole viewport.
+      const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--bar")) || 0;
+      const fieldBottom = bar + field.offsetHeight;
+      const readingCentre = fieldBottom + (window.innerHeight - fieldBottom) / 2;
+      const rect = step.getBoundingClientRect();
+      window.scrollTo({ top: window.scrollY + rect.top + rect.height / 2 - readingCentre, behavior });
+      return;
+    }
+    step.scrollIntoView({ behavior, block: "center" });
   }, []);
 
   const stage = stages[active];

@@ -46,7 +46,7 @@ export default async function Home({ params }) {
 
   return (
     <main id="main">
-      <a className="skip" href="#main">{ui.skip}</a>
+      <a className="skip" href="#content">{ui.skip}</a>
       <div id="top" />
       <Motion />
       <div className="progress" aria-hidden="true"><i className="progress-bar" /></div>
@@ -67,6 +67,8 @@ export default async function Home({ params }) {
           <SectionSheet label={ui.menu} closeLabel={ui.menuClose} title={ui.sectionsLabel} items={railTargets.map((href, i) => ({ href, label: ui.rail[i] }))} />
         </div>
       </header>
+
+      <div id="content" className="skip-target" tabIndex={-1} />
 
       <section className="hero">
         <div className="hero-copy">
@@ -154,6 +156,7 @@ export default async function Home({ params }) {
         </div>
         <ol>{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer">{source.title}</a><span>{source.detail}</span></li>)}</ol>
         <p className="editorial-note">{ui.sources.editorial}</p>
+        {SITE.repo && <p className="editorial-note">{ui.sources.report[0]} <a href={`${SITE.repo}/issues/new/choose`} target="_blank" rel="noreferrer">{ui.sources.report[1]} <span aria-hidden="true">↗</span></a></p>}
       </section>
 
       <footer className="site-footer" aria-label={ui.footer.nav}>
