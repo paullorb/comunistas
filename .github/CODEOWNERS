@@ -1,0 +1,9 @@
+# The maintainer is asked to review every pull request. The paths below are listed separately so
+# that a later, narrower rule for content never takes over how the project is built, checked or
+# governed.
+*                 @paullorb
+/.github/         @paullorb
+/scripts/         @paullorb
+/next.config.mjs  @paullorb
+/package.json     @paullorb
+/app/data.js      @paullorb

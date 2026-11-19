@@ -1,0 +1,41 @@
+name: Correction
+description: Something on the page is wrong, imprecise or not supported by its source.
+labels: ["correction"]
+body:
+  - type: textarea
+    id: claim
+    attributes:
+      label: What the page says
+      description: Quote the sentence and say where it is (chapter or step, and language).
+    validations:
+      required: true
+  - type: textarea
+    id: record
+    attributes:
+      label: What the source says
+      description: Quote the document exactly, in its original language.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link to the source
+      description: Prefer the official record. Add the page, article or paragraph.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of source
+      options:
+        - Official record (law, ruling, parliamentary record, commission report, declassified document)
+        - Archival copy of an official record
+        - Human-rights organisation
+        - Press
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suggested wording (optional)

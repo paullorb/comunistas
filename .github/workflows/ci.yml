@@ -22,3 +22,19 @@ jobs:
     # a replay of supabase/migrations/ onto a scratch Postgres — a no-op here,
     # there is no supabase directory. No secrets.
     uses: paullorb/cicd/.github/workflows/app-ci.yml@86018ab77a3353da772ac1b63a5a4be9bf75767b
+
+  content:
+    name: Content guardrails
+    # Languages in step, every claim linked to the source list, no banned
+    # sources, figures that add up. Needs no dependencies and no secrets, so it
+    # runs the same way for a pull request from a fork.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: .node-version
+      - run: npm run check

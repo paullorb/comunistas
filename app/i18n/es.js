@@ -69,6 +69,7 @@ const es = {
       p: "Este relato sigue los registros judiciales, parlamentarios y oficiales cuando existen, y señala como tales las copias de archivo y las fuentes de prensa o secundarias. Distingue entre acusaciones, resoluciones judiciales y el desenlace final. Las citas de documentos en inglés son traducción propia.",
       editorial:
         "Nota editorial: «llevado ante la justicia» se usa a menudo para describir la importancia histórica del caso. Pinochet no fue extraditado, no fue juzgado en España y nunca fue condenado. La sección de la lista del enemigo es una lectura editorial de los decretos que cita; los decretos y las cifras de víctimas son el registro documental. La cifra de 41.481 es la suma, hecha por este sitio, de dos totales oficiales (3.227 y 38.254); la de 40.018, habitual en la prensa, no figura en ningún informe oficial.",
+      report: ["¿Encontraste un error o conoces una fuente mejor?", "Propón una corrección en GitHub"],
     },
     about: {
       eyebrow: "Sobre el proyecto",
