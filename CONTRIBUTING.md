@@ -77,7 +77,7 @@ The checks cannot tell whether a quote is accurate. Reviewers will open your sou
 - One topic per pull request. A correction and a redesign are two pull requests.
 - Fill in the template, including the source table for any change of fact.
 - Do not commit generated files (`.next`, `node_modules`) or anything containing credentials. The project needs no secrets to build.
-- By contributing you agree that your contribution is published under the project's licence (see `README.md`).
+- By contributing you agree that your contribution is published under the project's licences: MIT for code, CC BY-SA 4.0 for text and illustrations (see `README.md`).
 
 ## Conduct
 
