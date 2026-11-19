@@ -23,9 +23,11 @@ Spanish is the default (`/`), English lives at `/en` (`/es` redirects to `/`). R
 
 - `app/site.js` holds `author` and `contact`. While they are `null` the credits and the "found a mistake?" line leave them out; set them to show them.
 - Share images and the Apple icon are generated from `scripts/og/template.html` with `node scripts/og/make.mjs` (needs Playwright).
-- `app/scenes.js` draws the ten timeline panels; `app/enemy-definer.js` is the canvas dot field (40,018 dots, one per recognised victim).
+- `app/scenes.js` draws the ten timeline panels; `app/enemy-definer.js` is the canvas dot field (41,481 dots, one per recognised victim; the figures are in `VICTIMS` in `app/data.js`).
 
 ## Sources
+
+The full, annotated list is on the page itself (`sourceBase` in `app/data.js`, titles in `app/i18n/`). Official records come first; archival copies and press are labelled as such. The backbone:
 
 - [House of Lords judgment, 24 March 1999](https://publications.parliament.uk/pa/ld199899/ldjudgmt/jd990324/pino1.htm)
 - [House of Lords judgment, 15 January 1999](https://publications.parliament.uk/pa/ld199899/ldjudgmt/jd990115/pino01.htm)

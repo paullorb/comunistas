@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { VICTIMS } from "./data";
 import "./enemy.css";
 
-// The signature moment. One canvas holds 40,018 dots — exactly the number of victims Chile later
-// recognised (2011 Valech revision). While the label spreads, the field is a country; in the last
-// step every dot is a recognised victim and 3,065 of them (killed or disappeared) turn red.
-const N = 40018;
-const KILLED = 3065;
+// The signature moment. One canvas holds one dot per victim recognised by Chile's commissions
+// (see VICTIMS in data.js). While the label spreads, the field is a country; in the last step
+// every dot is a recognised victim and the killed or disappeared turn red.
+const N = VICTIMS.total;
+const KILLED = VICTIMS.killed;
 const BASE_TOTAL = 360; // the stage counts in app/data.js are expressed out of 360
 
 const BG = [25, 25, 22];
