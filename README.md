@@ -52,8 +52,13 @@ The full, annotated list is on the page itself (`sourceBase` in `app/data.js`, t
 - `scripts/github/repo-settings.sh` applies the repository settings the project relies on: squash-only merges, a protected default branch with required checks, secret scanning, Dependabot, restricted Actions and approval for outside contributors' workflow runs. Some of these exist only on public repositories, so run it again after any change of visibility.
 - CI runs pull requests from forks on GitHub-hosted runners with a read-only token and no secrets. Keep it that way: do not add `pull_request_target` workflows that check out a contributor's code, and do not give the build secrets.
 - Response headers, including the content security policy, are set in `next.config.mjs`. Anything new the page loads from another origin has to be allowed there.
-- `app/site.js` holds `repo`: set it to the public repository URL to show the "propose a correction" link under the sources.
+- `app/site.js` holds `repo`, the public repository URL behind the "propose a correction" link under the sources.
 
 ## Licence
 
-To be decided before the repository is opened to contributions; see the open question in the pull request that added this section.
+Two licences, because the project is two things:
+
+- **Code** — everything not listed below — is under the [MIT License](LICENSE).
+- **Content** — the text in `app/i18n/`, the illustrations drawn in `app/scenes.js` and the hero, and the images in `public/` — is under [Creative Commons Attribution-ShareAlike 4.0 International](LICENSE-CONTENT) (CC BY-SA 4.0). Reuse it with credit to "Comunistas (comunistas.app)" and a link, and share adaptations under the same licence.
+
+The documents the story cites belong to their own authors and institutions and are not covered by either licence.

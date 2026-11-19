@@ -4,7 +4,7 @@ export const SITE = {
   url: "https://comunistas.app",
   author: null,
   contact: null,
-  // Public repository URL. Set it once the repository is public to show the "propose a correction"
-  // link under the sources; while it is null the link is left out.
-  repo: null,
+  // Public repository URL, used for the "propose a correction" link under the sources. Set it to
+  // null to leave the link out.
+  repo: "https://github.com/paullorb/comunistas",
 };

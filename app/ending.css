@@ -51,3 +51,4 @@
   .site-footer{grid-template-columns:1fr;padding:48px 7vw 40px}
 }
 @media(max-width:640px){.about-cols{grid-template-columns:1fr;gap:36px}}
+.editorial-note+.editorial-note{margin-top:22px}
