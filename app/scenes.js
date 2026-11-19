@@ -323,11 +323,14 @@ const scenes = {
   ),
 };
 
+// Scenes whose information sits near the edges (rows of people, labels): never crop them.
+const fullBounds = new Set(["immunity"]);
+
 export default function Scene({ type, ui }) {
   const draw = scenes[type];
   if (!draw) return null;
   return (
-    <svg className="sv" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <svg className="sv" viewBox="0 0 400 300" preserveAspectRatio={`xMidYMid ${fullBounds.has(type) ? "meet" : "slice"}`} aria-hidden="true" focusable="false">
       {draw({ ui })}
     </svg>
   );
