@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,6 +53,34 @@ function heroIntro() {
     .from(".warrant b", { scale: 2.6, opacity: 0, rotation: 8, duration: 0.35, ease: "power4.in" }, 1.85)
     .to(".warrant", { x: "+=4", y: "+=3", duration: 0.05, repeat: 5, yoyo: true, ease: "none" }, 2.2)
     .from(".hero-art .art-caption, .hero-index", { opacity: 0, duration: 0.8 }, 2.2);
+}
+
+// Inertial wheel scrolling on the page's native scroll: sticky keeps working, touch stays native, and
+// anchor links and scrollIntoView are left to the browser (Lenis follows them). It runs on GSAP's
+// ticker so every scrubbed trigger reads the same scroll position.
+function smoothScroll() {
+  const lenis = new Lenis({ autoRaf: false, lerp: 0.11 });
+  lenis.on("scroll", ScrollTrigger.update);
+  const raf = (time) => lenis.raf(time * 1000);
+  gsap.ticker.add(raf);
+  gsap.ticker.lagSmoothing(0);
+  return () => { gsap.ticker.remove(raf); lenis.destroy(); };
+}
+
+// Leaving the hero: the copy lifts faster than the scroll and the illustration lags behind it.
+function heroExit() {
+  if (!window.matchMedia("(min-width: 901px)").matches) return;
+  const scrollTrigger = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
+  gsap.to(".hero-copy", { y: -70, ease: "none", scrollTrigger });
+  gsap.to(".hero-art", { y: 60, ease: "none", scrollTrigger });
+}
+
+// The red line that draws down the date column of each timeline, and the footer wordmark rising.
+function spineAndWordmark() {
+  q(".timeline").forEach((el) => {
+    gsap.fromTo(el, { "--spine": 0 }, { "--spine": 1, ease: "none", scrollTrigger: { trigger: el, start: "top 60%", end: "bottom 60%", scrub: true } });
+  });
+  gsap.from(".foot-word > span", { yPercent: 100, ease: "none", scrollTrigger: { trigger: ".site-footer", start: "top 85%", end: "bottom bottom", scrub: 0.4 } });
 }
 
 function heroParallax() {
@@ -259,13 +288,16 @@ export default function Motion() {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       document.documentElement.classList.add("motion");
+      const offSmooth = smoothScroll();
       heroIntro();
+      heroExit();
       scrollProgress();
       sheets();
       contextBand();
       headings();
       chapterScenes();
       dateRails();
+      spineAndWordmark();
       const offParallax = heroParallax();
       const offTilt = window.matchMedia("(hover: hover)").matches ? tilt() : undefined;
       const refresh = () => ScrollTrigger.refresh();
@@ -273,6 +305,7 @@ export default function Motion() {
       document.fonts?.ready.then(refresh);
       return () => {
         document.documentElement.classList.remove("motion");
+        offSmooth();
         offParallax?.();
         offTilt?.();
         window.removeEventListener("load", refresh);

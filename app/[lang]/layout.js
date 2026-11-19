@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import "../motion.css";
 import "../ending.css";
+import "../polish.css";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
 export const viewport = { themeColor: "#e9e5db" };
