@@ -21,7 +21,7 @@ jobs:
     # Reusable pipeline shared across paullorb repos. Lint, audit, build, and
     # a replay of supabase/migrations/ onto a scratch Postgres — a no-op here,
     # there is no supabase directory. No secrets.
-    uses: paullorb/cicd/.github/workflows/app-ci.yml@86018ab77a3353da772ac1b63a5a4be9bf75767b
+    uses: paullorb/cicd/.github/workflows/app-ci.yml@ef0b21f7cff29213128877f6cd7f5a92d71c7765
 
   content:
     name: Content guardrails
