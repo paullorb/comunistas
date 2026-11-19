@@ -218,7 +218,7 @@ const scenes = {
     </>
   ),
 
-  // Heathrow, 2 March 2000: the departure board and an aircraft leaving.
+  // RAF Waddington, 2 March 2000 (Hansard: take-off at about 1.10 pm): a departure board and an aircraft leaving.
   end: ({ ui }) => (
     <>
       <defs>
@@ -230,8 +230,8 @@ const scenes = {
       <g transform="translate(0 16)"><g className="sc-board">
         <rect x="24" y="24" width="238" height="128" fill="#1b1b19" />
         <rect x="24" y="24" width="238" height="14" fill="#2f2e2a" />
-        <text x="36" y="35" fontFamily={MONO} fontSize="10" letterSpacing="2" fill="#8d897f">LHR · {ui.scenes.board}</text>
-        {[["LHR → SCL", "#e9e5db"], [ui.scenes.departure[0], "#e9e5db"], [ui.scenes.departure[1], "#e8695d"]].map(([t, c], i) => (
+        <text x="36" y="35" fontFamily={MONO} fontSize="10" letterSpacing="2" fill="#8d897f">{ui.scenes.board}</text>
+        {[["13:10 → SCL", "#e9e5db"], [ui.scenes.departure[0], "#e9e5db"], [ui.scenes.departure[1], "#e8695d"]].map(([t, c], i) => (
           <g key={i}>
             <rect x="36" y={52 + i * 32} width="214" height="24" fill="#2a2926" />
             <text x="46" y={69 + i * 32} fontFamily={MONO} fontSize="15" fontWeight="500" letterSpacing="3" fill={c}>{t}</text>
