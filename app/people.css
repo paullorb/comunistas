@@ -1,0 +1,35 @@
+/* People, tags and cues: the layer that ties each picture to the sentence it illustrates. */
+
+/* The panel and its caption. The caption sits under the picture so the picture is free for people. */
+.chapter-fig{margin:0;min-width:0}
+/* Every panel is drawn on a 4:3 sheet and shown whole, so nothing near an edge is ever cropped. */
+.chapter-fig>.chapter-visual{height:auto;min-height:0;aspect-ratio:4/3}
+.chapter.reverse .chapter-fig{order:2}
+.chapter-fig>.visual-caption{position:static;display:block;margin-top:12px;padding:0 0 0 14px;border-left:2px solid var(--red);background:none;color:var(--muted);line-height:1.55}
+@media(max-width:900px){.chapter-fig{grid-column:1;grid-row:2}}
+
+/* A marked phrase in the copy. --on runs 0 → 1 as the scene reaches the matching beat (motion.js);
+   without motion it is simply on. */
+.cue{--on:1;color:color-mix(in srgb,var(--ink) calc(var(--on)*100%),#5e5b55);background:linear-gradient(var(--red),var(--red)) 0 100%/calc(var(--on)*100%) 2px no-repeat;padding:1px 0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-color .25s ease}
+.chapter .cue{cursor:default}
+.chapter .cue.is-hot{background-color:rgba(191,39,39,.16)}
+
+/* The red tags inside a panel */
+.tag{cursor:default}
+.tag-box{transition:fill .25s ease}
+.tag.is-hot .tag-box{fill:#191916}
+.tag-ping{opacity:0;transform-box:fill-box;transform-origin:center;pointer-events:none}
+.tag.is-hot .tag-ping{animation:tag-ping 1.1s ease-out infinite}
+@keyframes tag-ping{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(5.5)}}
+
+/* Hero: two officers under the warrant, one hand raised */
+.hero-people{position:absolute;z-index:3;left:3%;bottom:-1px;height:39%;width:auto;overflow:visible;pointer-events:none}
+.art-caption{z-index:4;top:14px;bottom:auto;right:14px;background:var(--paper);color:var(--ink);padding:3px 8px}
+@media(max-width:900px){.hero-people{height:36%}.art-caption{top:auto;bottom:10px;left:10px;right:auto;max-width:calc(100% - 20px)}}
+
+/* Enemy list: a marked phrase takes the colour of the dots it talks about, when its card is read */
+.enemy-card .cue{--c:#e0483f;color:var(--paper);background:linear-gradient(var(--c),var(--c)) 0 100%/0 3px no-repeat;padding-bottom:3px;transition:background-size .9s cubic-bezier(.2,.8,.2,1) .45s}
+.enemy-steps li.is-active .cue{background-size:100% 3px}
+.cue-suspended{--c:#e0a032!important}.cue-neutral{--c:#a8a498!important}.cue-counted{--c:#d8d3c6!important}.cue-ring{--c:#f4efe4!important}
+
+@media(prefers-reduced-motion:reduce){.tag.is-hot .tag-ping{animation:none;opacity:.8}.enemy-card .cue{background-size:100% 3px}}

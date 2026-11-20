@@ -47,6 +47,7 @@ Node 24 is expected (see `.node-version`).
 - `app/data.js` holds everything that is the same in every language: the order of steps and chapters, the dot counts, the victim figures and **every link**.
 - `app/i18n/es.js` and `app/i18n/en.js` hold all visible text, in the same shape and order.
 - `app/scenes.js` draws the timeline illustrations; `app/enemy-definer.js` is the dot field.
+- A chapter's `cues` pair a phrase of its body with the red tag shown in its panel. If you reword a body, keep its cue phrases word for word (the check tells you when one no longer matches).
 
 ### Languages
 

@@ -35,6 +35,7 @@ Spanish is the default (`/`), English lives at `/en` (`/es` redirects to `/`). R
 
 - `app/site.js` holds `author` and `contact`. While they are `null` the credits and the "found a mistake?" line leave them out; set them to show them.
 - Share images and the Apple icon are generated from `scripts/og/template.html` with `node scripts/og/make.mjs` (needs Playwright).
+- `app/figures.js` draws the people and the red tags; a tag repeats a phrase of the chapter's copy next to what it describes, and the copy marks the same phrase (`cues` in `app/i18n/`, tag positions in `sceneTags` in `app/data.js`). `npm run check` fails if a marked phrase is not in its text.
 - `app/scenes.js` draws the ten timeline panels; `app/enemy-definer.js` is the canvas dot field (41,481 dots, one per recognised victim; the figures are in `VICTIMS` in `app/data.js`).
 
 ## Sources
