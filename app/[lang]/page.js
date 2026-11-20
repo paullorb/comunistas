@@ -5,18 +5,24 @@ import EnemyDefiner from "../enemy-definer";
 import SectionSheet from "../section-sheet";
 import Scene from "../scenes";
 import ShareButtons from "../share-buttons";
+import CueText from "../cue-text";
+import { Figure } from "../figures";
 import { SITE } from "../site";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
 const railTargets = ["#question", "#enemy", "#london", "#after", "#about", "#sources"];
 
-function StoryVisual({ type, label, caption, ui }) {
+const POLICE = { coat: "#22252b", legs: "#22252b", hat: "helmet", hair: null };
+
+function StoryVisual({ type, label, caption, ui, cues }) {
   return (
-    <div className={`chapter-visual visual-${type}`}>
-      <span className="visual-label">{label}</span>
-      <Scene type={type} ui={ui} />
-      <span className="visual-caption">{caption}</span>
-    </div>
+    <figure className="chapter-fig">
+      <div className={`chapter-visual visual-${type}`}>
+        <span className="visual-label">{label}</span>
+        <Scene type={type} ui={ui} cues={cues} />
+      </div>
+      <figcaption className="visual-caption">{caption}</figcaption>
+    </figure>
   );
 }
 
@@ -27,11 +33,11 @@ function Chapter({ item, index, id, ending, ui }) {
       <div className="chapter-date">
         {item.date[0]}<br /><b>{item.date[1]}</b><span>{item.date[2]}</span>
       </div>
-      <StoryVisual type={item.visual} label={item.label} caption={item.caption} ui={ui} />
+      <StoryVisual type={item.visual} label={item.label} caption={item.caption} ui={ui} cues={item.cues} />
       <div className="chapter-copy">
         <p className="chapter-no">{item.eyebrow}</p>
         <h2>{item.title}</h2>
-        <p>{item.body}</p>
+        <p><CueText text={item.body} cues={item.cues.map(([phrase]) => phrase)} /></p>
         {item.detail && <p className="chapter-detail"><b>{ui.onRecord}</b> {item.detail}</p>}
         {item.note && <p className="fact-note">{item.note}</p>}
       </div>
@@ -87,6 +93,10 @@ export default async function Home({ params }) {
           <div className="city city-front"><i /><i /><i /><i /></div>
           <div className="red-line" />
           <div className="warrant"><span>{ui.warrant.org}</span><strong>{ui.warrant.title[0]}<br />{ui.warrant.title[1]}</strong><small>{ui.warrant.date[0]}<br />{ui.warrant.date[1]}</small><b>{ui.warrant.stamp}</b></div>
+          <svg className="hero-people" viewBox="0 0 132 124" aria-hidden="true" focusable="false">
+            <Figure cls="hp" x={34} y={124} {...POLICE} />
+            <Figure cls="hp" x={92} y={124} {...POLICE} armR={[24, -88, 27, -112]} armRCls="hp-hand" />
+          </svg>
           <span className="art-caption">{ui.artCaption}</span>
         </div>
         <span className="hero-index">{ui.heroIndex}</span>

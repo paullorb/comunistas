@@ -18,7 +18,7 @@ registerHooks({
   },
 });
 
-const { chapterVisuals, afterVisuals, stageBase, sourceBase, VICTIMS } = await import("../app/data.js");
+const { chapterVisuals, afterVisuals, stageBase, sourceBase, sceneTags, VICTIMS } = await import("../app/data.js");
 const { locales, getContent } = await import("../app/i18n/index.js");
 const copy = Object.fromEntries(await Promise.all(locales.map(async (l) => [l, (await import(`../app/i18n/${l}.js`)).default])));
 
@@ -65,6 +65,35 @@ for (const lang of locales) {
     if (stage.source && !href) fail(`${lang}.stages[${i}] (${base.key}): has a source label but no link`);
     if (!stage.source && i > 0) fail(`${lang}.stages[${i}] (${base.key}): every step after the first must cite a source`);
     if (stage.legend && stage.legend.length !== base.legend.length) fail(`${lang}.stages[${i}] (${base.key}): legend length differs from app/data.js`);
+  });
+}
+
+// 2b. Marked phrases ("cues"): each one is in the text it marks, in reading order, and there is one
+// per red tag in the panel (chapters) or per dot state named in app/data.js (steps).
+function cuesInOrder(text, phrases, where) {
+  let rest = text;
+  for (const phrase of phrases) {
+    const at = rest.indexOf(phrase);
+    if (at < 0) { fail(`${where}: the marked phrase "${phrase}" is not in the body (or is out of order)`); continue; }
+    rest = rest.slice(at + phrase.length);
+  }
+}
+for (const lang of locales) {
+  const c = copy[lang];
+  [...chapterVisuals, ...afterVisuals].forEach((visual, i) => {
+    const chapter = [...c.chapters, ...c.afterChapters][i];
+    if (!chapter) return;
+    const where = `${lang} chapter ${i + 1} (${visual})`;
+    const cues = chapter.cues ?? [];
+    if (cues.length !== (sceneTags[visual]?.length ?? 0)) fail(`${where}: ${cues.length} cues, app/data.js places ${sceneTags[visual]?.length ?? 0} tags`);
+    cuesInOrder(chapter.body, cues.map(([phrase]) => phrase), where);
+  });
+  c.stages.forEach((stage, i) => {
+    const base = stageBase[i];
+    if (!base) return;
+    const cues = stage.cues ?? [];
+    if (cues.length !== (base.cues?.length ?? 0)) fail(`${lang}.stages[${i}] (${base.key}): ${cues.length} cues, app/data.js names ${base.cues?.length ?? 0}`);
+    cuesInOrder(stage.body, cues, `${lang}.stages[${i}] (${base.key})`);
   });
 }
 

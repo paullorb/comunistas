@@ -5,6 +5,22 @@
 export const chapterVisuals = ["coup", "arrival", "arrest", "court", "ruling", "commit", "end"];
 export const afterVisuals = ["return", "immunity", "verdict"];
 
+// Where each panel pins its red tags, in the order of the chapter's `cues` (app/i18n): the top-left
+// corner of the chip (or its right edge when the row ends with "end") and the point it marks, in the
+// panel's 400×300 space.
+export const sceneTags = {
+  coup: [[16, 170, 74, 200], [216, 184, 200, 216], [296, 118, 326, 146]],
+  arrival: [[392, 104, 306, 72, "end"], [14, 150, 56, 176], [392, 142, 340, 170, "end"]],
+  arrest: [[150, 48, 135, 77], [220, 122, 232, 146, "end"], [100, 156, 88, 172]],
+  court: [[40, 100, 152, 128], [258, 118, 267, 144], [392, 54, 182, 68, "end"]],
+  ruling: [[8, 224, 92, 246], [286, 120, 268, 144], [286, 190, 268, 202]],
+  commit: [[212, 96, 200, 152], [394, 156, 364, 178, "end"]],
+  end: [[10, 180, 48, 208], [180, 172, 163, 180], [282, 206, 345, 191]],
+  return: [[392, 112, 304, 142, "end"], [40, 172, 96, 206], [174, 116, 206, 150]],
+  immunity: [[150, 180, 192, 208], [300, 56, 279, 72]],
+  verdict: [[392, 92, 276, 120, "end"], [392, 196, 273, 231, "end"]],
+};
+
 // The victim counts, from the commissions' own reports (see the sources list):
 //   killed or disappeared  3,197 (Rettig 1991 + CNRR 1996) + 30 (Valech II, 2011)            = 3,227
 //   prison and torture     27,255 (Valech I, 2004) + 1,204 (2005) + 9,795 (Valech II, 2011)  = 38,254
@@ -20,25 +36,26 @@ const VALECH_II = "https://bibliotecadigital.indh.cl/handle/123456789/600";
 
 // The enemy definer. `named` / `suspended` are counts of dots (of 360) in each state; the field
 // is illustrative until the last step; the canvas holds one dot per recognised victim.
-// `sourceHref` is the default link; a language can override it with `sourceHref` in its copy.
+// `cues` gives the dot state each marked phrase of the step's copy stands for (same order as the
+// step's `cues` in app/i18n). `sourceHref` is the default link; a language can override it with `sourceHref` in its copy.
 export const stageBase = [
-  { key: "before", named: 0, suspended: 0, legend: ["neutral"] },
-  { key: "coup", named: 36, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(237897) },
-  { key: "dl77", named: 86, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(5730, "1973-10-13") },
-  { key: "dl78", named: 86, suspended: 144, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(5731) },
+  { key: "before", cues: ["neutral"], named: 0, suspended: 0, legend: ["neutral"] },
+  { key: "coup", cues: ["named"], named: 36, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(237897) },
+  { key: "dl77", cues: ["named"], named: 86, suspended: 0, legend: ["neutral", "named"], sourceHref: leyChile(5730, "1973-10-13") },
+  { key: "dl78", cues: ["suspended"], named: 86, suspended: 144, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(5731) },
   {
-    key: "prats", named: 86, suspended: 144, rings: [69], legend: ["neutral", "named", "suspended", "ring"],
+    key: "prats", cues: ["ring"], named: 86, suspended: 144, rings: [69], legend: ["neutral", "named", "suspended", "ring"],
     sourceHref: "https://interactivos.museodelamemoria.cl/justicia/archivo/CS_2596-2009_Reemplazo.pdf",
   },
   {
-    key: "letelier", named: 86, suspended: 144, rings: [69, 267, 292], legend: ["neutral", "named", "suspended", "ring"],
+    key: "letelier", cues: ["ring", "ring"], named: 86, suspended: 144, rings: [69, 267, 292], legend: ["neutral", "named", "suspended", "ring"],
     sourceHref: "https://nsarchive.gwu.edu/sites/default/files/documents/3212949/Document-03-DOS-Pinochet-and-the-Letelier.pdf",
   },
-  { key: "dl1697", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(6723) },
+  { key: "dl1697", cues: ["suspended"], named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(6723) },
   { key: "dl2191", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(6849) },
-  { key: "art8", named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(7129, "1980-08-11") },
+  { key: "art8", cues: ["named"], named: 86, suspended: 230, legend: ["neutral", "named", "suspended"], sourceHref: leyChile(7129, "1980-08-11") },
   {
-    key: "count", named: 0, suspended: 0, mode: "count", statValue: VICTIMS.total, legend: ["counted", "killed"],
+    key: "count", cues: ["killed", "counted"], named: 0, suspended: 0, mode: "count", statValue: VICTIMS.total, legend: ["counted", "killed"],
     sourceHref: VALECH_II,
   },
 ];

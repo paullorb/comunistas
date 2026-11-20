@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { VICTIMS } from "./data";
+import CueText from "./cue-text";
 import "./enemy.css";
 
 // The signature moment. One canvas holds one dot per victim recognised by Chile's commissions
@@ -66,7 +67,7 @@ function kindFor(stage, rank) {
 
 const pack = (c) => (255 << 24) | (c[2] << 16) | (c[1] << 8) | c[0];
 
-function createField(canvas) {
+function createField(canvas, lensLabel) {
   const ctx = canvas.getContext("2d");
   const from = new Uint8Array(N * 3);
   const to = new Uint8Array(N * 3);
@@ -144,6 +145,7 @@ function createField(canvas) {
       }
     }
     ctx.putImageData(img, 0, 0);
+    drawLens();
     // Rings and names for the people killed abroad.
     if (ringT.v > 0.001 && stage?.rings?.length) {
       const shown = spots.slice(0, stage.rings.length);
@@ -162,6 +164,55 @@ function createField(canvas) {
       }
       ctx.globalAlpha = 1;
     }
+  }
+
+  // The lens: a magnifier over the field that shows the dots under it for what they are, people.
+  // Each figure takes the live colour of one dot near the lens, so the label reaches them as it
+  // reaches the field. It steps aside while the named individuals are ringed.
+  function drawLens() {
+    const alpha = 1 - ringT.v;
+    if (alpha < 0.02) return;
+    const mobile = W <= 900;
+    const R = Math.max(54, Math.min(W, H) * 0.14) * dpr;
+    const cx = W * (mobile ? 0.5 : 0.27) * dpr;
+    const cy = H * (mobile ? 0.44 : 0.46) * dpr;
+    const c0 = Math.round((cx - offX) / pitchX), r0 = Math.round((cy - offY) / pitchY);
+    const u = R / 4.4;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = "#11110f"; ctx.fill();
+    ctx.clip();
+    for (let pr = -2; pr <= 2; pr++) {
+      for (let pc = -3; pc <= 3; pc++) {
+        const col = Math.min(cols - 1, Math.max(0, c0 + pc * 2)), row = Math.min(rows - 1, Math.max(0, r0 + pr * 2));
+        const k = Math.min(N - 1, row * cols + col) * 3;
+        const px = cx + (pc + (pr & 1 ? 0.5 : 0)) * u * 1.75, py = cy + pr * u * 2.75 + u * 0.3;
+        ctx.fillStyle = `rgb(${cur[k]},${cur[k + 1]},${cur[k + 2]})`;
+        ctx.beginPath(); ctx.arc(px, py - u * 1.12, u * 0.42, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(px - u * 0.62, py + u * 1.05);
+        ctx.lineTo(px - u * 0.62, py - u * 0.1);
+        ctx.quadraticCurveTo(px - u * 0.62, py - u * 0.6, px, py - u * 0.6);
+        ctx.quadraticCurveTo(px + u * 0.62, py - u * 0.6, px + u * 0.62, py - u * 0.1);
+        ctx.lineTo(px + u * 0.62, py + u * 1.05);
+        ctx.closePath(); ctx.fill();
+      }
+    }
+    ctx.restore();
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = 2 * dpr; ctx.strokeStyle = "#f4efe4";
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+    if (lensLabel) {
+      ctx.font = `${11 * dpr}px "DM Mono", monospace`;
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      const text = lensLabel.toUpperCase();
+      const tw = ctx.measureText(text).width + 16 * dpr, th = 20 * dpr, ty = cy + R + 16 * dpr;
+      ctx.fillStyle = "rgba(25,25,22,.86)"; ctx.fillRect(cx - tw / 2, ty - th / 2, tw, th);
+      ctx.fillStyle = "#f4efe4"; ctx.fillText(text, cx, ty);
+    }
+    ctx.restore();
   }
 
   function setStage(next, index, instant) {
@@ -209,19 +260,21 @@ export default function EnemyDefiner({ stages, locale, t }) {
   const statValueRef = useRef(null);
   const counter = useRef({ v: 0 });
   const stageRef = useRef({ stages, active: 0 });
+  const lensRef = useRef(t.lens);
   stageRef.current = { stages, active };
 
   // Mount: build the canvas field and keep it sized to its box.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const field = createField(canvas);
+    const field = createField(canvas, lensRef.current);
     fieldRef.current = field;
     field.init();
     field.resize();
     const { stages: list, active: idx } = stageRef.current;
     field.setStage(list[idx], idx, true);
     const ro = new ResizeObserver(() => field.resize());
+    document.fonts?.ready.then(() => fieldRef.current?.resize());
     ro.observe(canvas);
     return () => { ro.disconnect(); field.destroy(); fieldRef.current = null; };
   }, []);
@@ -332,7 +385,7 @@ export default function EnemyDefiner({ stages, locale, t }) {
               <div className="enemy-card">
                 <p className="enemy-date">{s.date}</p>
                 <h3>{s.title}</h3>
-                <p>{s.body}</p>
+                <p><CueText text={s.body} cues={s.cues.map(([phrase]) => phrase)} kinds={s.cues.map(([, kind]) => kind)} /></p>
                 {s.note && <p className="fact-note">{s.note}</p>}
                 {s.source && <a className="enemy-source" href={s.source.href} target="_blank" rel="noreferrer">{s.source.label} <span aria-hidden="true">↗</span></a>}
               </div>

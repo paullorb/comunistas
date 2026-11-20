@@ -29,6 +29,7 @@ export function getContent(lang) {
         title: t.title,
         body: t.body,
         note: t.note,
+        cues: (t.cues ?? []).map((phrase, j) => [phrase, base.cues?.[j] ?? "neutral"]),
         named: base.named,
         suspended: base.suspended,
         rings: base.rings,
