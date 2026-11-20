@@ -25,7 +25,8 @@ export default function SectionSheet({ label, closeLabel, title, items }) {
         <span className="sheet-bars" aria-hidden="true" />
         <span>{open ? closeLabel : label}</span>
       </button>
-      <nav id="section-sheet" ref={panel} className={`sheet-panel${open ? " is-open" : ""}`} aria-label={title}>
+      {/* data-lenis-prevent: let the wheel scroll this overflowing panel natively instead of the page behind it. */}
+      <nav id="section-sheet" ref={panel} className={`sheet-panel${open ? " is-open" : ""}`} aria-label={title} data-lenis-prevent>
         <ul>
           {items.map((item) => (
             <li key={item.href}><a href={item.href} onClick={() => setOpen(false)}>{item.label}<span aria-hidden="true">→</span></a></li>
