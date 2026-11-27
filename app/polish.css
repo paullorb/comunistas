@@ -18,7 +18,7 @@ p,li{text-wrap:pretty}
 /* Hover states, pointer devices only */
 @media(hover:hover){
   .mark{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-  .wordmark:hover .mark{transform:rotate(-14deg) scale(1.08)}
+  .wordmark:hover .mark{transform:scale(1.06)}
   .top-link,.foot-links a{background:linear-gradient(currentColor,currentColor) 0 calc(50% + 11px)/0 1px no-repeat;transition:background-size .45s cubic-bezier(.2,.8,.2,1),color .25s}
   .top-link:hover,.foot-links a:hover{background-size:100% 1px}
   .scroll-line{transition:width .45s cubic-bezier(.2,.8,.2,1)}
