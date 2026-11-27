@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { VICTIMS } from "./data";
 import CueText from "./cue-text";
+import QuoteText from "./quote-text";
 import "./enemy.css";
 
 // The signature moment. One canvas holds one dot per victim recognised by Chile's commissions
@@ -251,7 +252,7 @@ function createField(canvas, lensLabel) {
   };
 }
 
-export default function EnemyDefiner({ stages, locale, t }) {
+export default function EnemyDefiner({ stages, locale, t, tr }) {
   const [active, setActive] = useState(0);
   const rootRef = useRef(null);
   const canvasRef = useRef(null);
@@ -385,8 +386,8 @@ export default function EnemyDefiner({ stages, locale, t }) {
               <div className="enemy-card">
                 <p className="enemy-date">{s.date}</p>
                 <h3>{s.title}</h3>
-                <p><CueText text={s.body} cues={s.cues.map(([phrase]) => phrase)} kinds={s.cues.map(([, kind]) => kind)} /></p>
-                {s.note && <p className="fact-note">{s.note}</p>}
+                <p><CueText text={s.body} cues={s.cues.map(([phrase]) => phrase)} kinds={s.cues.map(([, kind]) => kind)} tr={tr} /></p>
+                {s.note && <p className="fact-note"><QuoteText text={s.note} tr={tr} /></p>}
                 {s.source && <a className="enemy-source" href={s.source.href} target="_blank" rel="noreferrer">{s.source.label} <span aria-hidden="true">↗</span></a>}
               </div>
             </li>

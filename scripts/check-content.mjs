@@ -132,6 +132,36 @@ for (const lang of locales) {
   }
 }
 
+// 6. Quotations follow the page's language. A quotation translated from a source in another language
+// carries a token right after its closing mark, [[xx: the original words]] (app/quote-text.js). The
+// token may only sit in text that renders it, must name the other language, and its original must
+// appear inside a quotation in that language's copy, so the two languages quote the same words.
+// The old "(our translation)" notes are replaced by the token and must not come back.
+const TOKEN = /\[\[([a-z]{2}): ([^\]]+)\]\]/g;
+const QUOTES = { es: /«([^»]*)»/g, en: /“([^”]*)”/g };
+const quotedIn = Object.fromEntries(locales.map((l) => [l, [...JSON.stringify(copy[l]).matchAll(QUOTES[l])].map((m) => m[1])]));
+const RENDERS_TOKENS = /^(chapters|afterChapters|stages)\[\d+\]\.(body|detail|note)$|^sources\[\d+\]\.detail$/;
+function walkStrings(value, path, visit) {
+  if (typeof value === "string") return visit(value, path);
+  if (Array.isArray(value)) return value.forEach((v, i) => walkStrings(v, `${path}[${i}]`, visit));
+  if (value && typeof value === "object") for (const [k, v] of Object.entries(value)) walkStrings(v, path ? `${path}.${k}` : k, visit);
+}
+for (const lang of locales) {
+  walkStrings(copy[lang], "", (text, path) => {
+    if (/\((our translation|traducción propia)\)/.test(text)) fail(`${lang}.${path}: mark a translated quotation with a [[xx: original]] token, not a note in brackets`);
+    for (const m of text.matchAll(TOKEN)) {
+      const [whole, src, original] = m;
+      const where = `${lang}.${path}`;
+      if (!RENDERS_TOKENS.test(path)) fail(`${where}: this text does not render translation marks, so ${whole.slice(0, 30)}… would show as typed`);
+      if (src === lang) fail(`${where}: a quotation from a ${src} source on the ${lang} page is quoted word for word, not translated`);
+      if (!locales.includes(src)) fail(`${where}: unknown source language "${src}"`);
+      const before = text[m.index - 1];
+      if (before !== "”" && before !== "»") fail(`${where}: the token must follow the closing quotation mark (${whole.slice(0, 30)}…)`);
+      else if (locales.includes(src) && !quotedIn[src].some((q) => q.includes(original))) fail(`${where}: the original "${original}" is not quoted in the ${src} copy`);
+    }
+  });
+}
+
 if (problems.length) {
   console.error(`Content check failed (${problems.length}):\n` + problems.map((p) => `  - ${p}`).join("\n"));
   process.exit(1);

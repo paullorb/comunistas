@@ -6,6 +6,7 @@ import SectionSheet from "../section-sheet";
 import Scene from "../scenes";
 import ShareButtons from "../share-buttons";
 import CueText from "../cue-text";
+import QuoteText from "../quote-text";
 import { Figure } from "../figures";
 import { SITE } from "../site";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
@@ -37,9 +38,9 @@ function Chapter({ item, index, id, ending, ui }) {
       <div className="chapter-copy">
         <p className="chapter-no">{item.eyebrow}</p>
         <h2>{item.title}</h2>
-        <p><CueText text={item.body} cues={item.cues.map(([phrase]) => phrase)} /></p>
-        {item.detail && <p className="chapter-detail"><b>{ui.onRecord}</b> {item.detail}</p>}
-        {item.note && <p className="fact-note">{item.note}</p>}
+        <p><CueText text={item.body} cues={item.cues.map(([phrase]) => phrase)} tr={ui.translated} /></p>
+        {item.detail && <p className="chapter-detail"><b>{ui.onRecord}</b> <QuoteText text={item.detail} tr={ui.translated} /></p>}
+        {item.note && <p className="fact-note"><QuoteText text={item.note} tr={ui.translated} /></p>}
       </div>
     </Reveal>
   );
@@ -108,7 +109,7 @@ export default async function Home({ params }) {
         <p className="context-note">{ui.contextNote}</p>
       </section>
 
-      <EnemyDefiner stages={stages} locale={locale} t={ui.enemy} />
+      <EnemyDefiner stages={stages} locale={locale} t={ui.enemy} tr={ui.translated} />
 
       <section className="timeline" id="london" aria-label={ui.timelineAria}>
         <div className="timeline-head"><p className="eyebrow"><span>{ui.parts[1]}</span> {ui.timelineHead}</p><p>{ui.scrollHint} <span aria-hidden="true">↓</span></p></div>
@@ -164,7 +165,7 @@ export default async function Home({ params }) {
         <div className="sources-intro"><p className="eyebrow">{ui.sources.eyebrow}</p><h2>{ui.sources.h2}</h2><p>{ui.sources.p}</p>
           <ShareButtons title={ui.title} text={ui.ogDescription} labels={ui.share} />
         </div>
-        <ol>{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer">{source.title}</a><span>{source.detail}</span></li>)}</ol>
+        <ol>{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer">{source.title}</a><span><QuoteText text={source.detail} tr={ui.translated} /></span></li>)}</ol>
         <p className="editorial-note">{ui.sources.editorial}</p>
         {SITE.repo && <p className="editorial-note">{ui.sources.report[0]} <a href={`${SITE.repo}/issues/new/choose`} target="_blank" rel="noreferrer">{ui.sources.report[1]} <span aria-hidden="true">↗</span></a></p>}
       </section>
