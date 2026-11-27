@@ -41,20 +41,16 @@ function splitWords(el) {
 
 const q = (sel, root = document) => [...root.querySelectorAll(sel)];
 
+// The hero has one beat: the headline sets, then the warrant lands and is stamped. Everything else in
+// the illustration is already there when it appears.
 function heroIntro() {
   const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-  tl.from(".hero .eyebrow", { opacity: 0, y: 14, duration: 0.6 })
-    .from(".hero h1 .ln > span", { yPercent: 110, duration: 0.9, stagger: 0.12 }, "-=0.35")
-    .from(".hero .intro, .hero .scroll-link", { opacity: 0, y: 16, duration: 0.7, stagger: 0.1 }, "-=0.45")
-    .from(".hero-art", { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power4.inOut" }, 0.1)
-    .from(".city i", { scaleY: 0, transformOrigin: "bottom", duration: 0.8, stagger: 0.05, ease: "power2.out" }, 0.6)
-    .from(".hero-art .red-line", { scaleX: 0, transformOrigin: "left center", duration: 0.9, ease: "power3.inOut" }, 0.9)
-    .from(".warrant", { y: -260, rotation: -22, opacity: 0, duration: 0.9, ease: "back.out(1.4)" }, 1)
-    .from(".warrant b", { scale: 2.6, opacity: 0, rotation: 8, duration: 0.35, ease: "power4.in" }, 1.85)
-    .to(".warrant", { x: "+=4", y: "+=3", duration: 0.05, repeat: 5, yoyo: true, ease: "none" }, 2.2)
-    .from(".hero-people .hp", { y: 60, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" }, 1.5)
-    .from(".hero-people .hp-hand", { rotation: 150, transformOrigin: "0% 100%", duration: 0.5, ease: "back.out(1.8)" }, 2.15)
-    .from(".hero-art .art-caption, .hero-index", { opacity: 0, duration: 0.8 }, 2.2);
+  tl.from(".hero .eyebrow", { opacity: 0, y: 14, duration: 0.5 })
+    .from(".hero h1 .ln > span", { yPercent: 110, duration: 0.8, stagger: 0.1 }, "-=0.3")
+    .from(".hero .intro, .hero .scroll-link", { opacity: 0, y: 12, duration: 0.6, stagger: 0.08 }, "-=0.4")
+    .from(".hero-art", { opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2)
+    .from(".warrant", { y: -200, rotation: -18, opacity: 0, duration: 0.8, ease: "back.out(1.3)" }, 1.1)
+    .from(".warrant b", { scale: 2.4, opacity: 0, rotation: 8, duration: 0.3, ease: "power4.in" }, 1.8);
 }
 
 // Inertial wheel scrolling on the page's native scroll: sticky keeps working, touch stays native, and
@@ -67,46 +63,6 @@ function smoothScroll() {
   gsap.ticker.add(raf);
   gsap.ticker.lagSmoothing(0);
   return () => { gsap.ticker.remove(raf); lenis.destroy(); };
-}
-
-// Leaving the hero: the copy lifts faster than the scroll and the illustration lags behind it.
-function heroExit() {
-  if (!window.matchMedia("(min-width: 901px)").matches) return;
-  const scrollTrigger = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
-  gsap.to(".hero-copy", { y: -70, ease: "none", scrollTrigger });
-  gsap.to(".hero-art", { y: 60, ease: "none", scrollTrigger });
-}
-
-// The red line that draws down the date column of each timeline, and the footer wordmark rising.
-function spineAndWordmark() {
-  q(".timeline").forEach((el) => {
-    gsap.fromTo(el, { "--spine": 0 }, { "--spine": 1, ease: "none", scrollTrigger: { trigger: el, start: "top 60%", end: "bottom 60%", scrub: true } });
-  });
-  gsap.from(".foot-word > span", { yPercent: 100, ease: "none", scrollTrigger: { trigger: ".site-footer", start: "top 85%", end: "bottom bottom", scrub: 0.4 } });
-}
-
-function heroParallax() {
-  const art = document.querySelector(".hero-art");
-  if (!art) return;
-  const layers = [
-    [".city-back", 14],
-    [".city-front", -22],
-    [".warrant", 30],
-    [".hero-people", -12],
-  ].map(([sel, depth]) => {
-    const el = art.querySelector(sel);
-    return el && { depth, x: gsap.quickTo(el, "x", { duration: 0.8, ease: "power3.out" }), y: gsap.quickTo(el, "y", { duration: 0.8, ease: "power3.out" }) };
-  }).filter(Boolean);
-  const onMove = (e) => {
-    const r = art.getBoundingClientRect();
-    const nx = (e.clientX - r.left) / r.width - 0.5;
-    const ny = (e.clientY - r.top) / r.height - 0.5;
-    layers.forEach((l) => { l.x(nx * l.depth); l.y(ny * l.depth * 0.6); });
-  };
-  const onLeave = () => layers.forEach((l) => { l.x(0); l.y(0); });
-  art.addEventListener("pointermove", onMove);
-  art.addEventListener("pointerleave", onLeave);
-  return () => { art.removeEventListener("pointermove", onMove); art.removeEventListener("pointerleave", onLeave); };
 }
 
 function scrollProgress() {
@@ -127,33 +83,6 @@ function scrollProgress() {
   });
 }
 
-// Section changes — paper → dark → paper → red → paper. An incoming dark or red section unfolds from an
-// inset sheet with rounded top corners to full bleed as it rises; an outgoing one folds back into an
-// inset sheet with rounded bottom corners, so the paper underneath shows through at the seams.
-function sheets() {
-  const FULL = "inset(0vh 0vw 0vh 0vw round 0px 0px 0px 0px)";
-  const enter = (sel, start = "top 100%", end = "top 30%") => {
-    const el = document.querySelector(sel);
-    if (!el) return;
-    gsap.fromTo(el, { clipPath: "inset(9vh 5vw 0vh 5vw round 44px 44px 0px 0px)" }, {
-      clipPath: FULL, ease: "none",
-      scrollTrigger: { trigger: el, start, end, scrub: true },
-    });
-  };
-  const leave = (sel, start = "bottom 100%", end = "bottom 40%") => {
-    const el = document.querySelector(sel);
-    if (!el) return;
-    gsap.fromTo(el, { clipPath: FULL }, {
-      clipPath: "inset(0vh 5vw 9vh 5vw round 0px 0px 44px 44px)", ease: "none", immediateRender: false,
-      scrollTrigger: { trigger: el, start, end, scrub: true },
-    });
-  };
-  enter(".band");
-  leave(".enemy");
-  enter(".closing");
-  leave(".closing");
-}
-
 function contextBand() {
   const statement = document.querySelector(".context-statement");
   if (!statement) return;
@@ -167,8 +96,10 @@ function contextBand() {
   gsap.fromTo(".context-statement > span", { "--underline": 0 }, { "--underline": 1, ease: "none", scrollTrigger: { trigger: statement, start: "bottom 70%", end: "bottom 40%", scrub: true } });
 }
 
+// Only the two section openers set word by word. A chapter's heading stays still: its scene is the
+// thing that moves there, and two moving things side by side split the reader's eye.
 function headings() {
-  q(".chapter-copy h2, .enemy-head h2, .closing h2").forEach((h) => {
+  q(".enemy-head h2, .closing h2").forEach((h) => {
     const words = splitWords(h);
     gsap.from(words, {
       yPercent: 105,
@@ -181,8 +112,8 @@ function headings() {
   });
 }
 
-// One scrubbed micro-animation per chapter scene, keyed on the visual's type class. Targets are the
-// "sc-" hooks inside app/scenes.js; animated groups carry no transform attribute of their own.
+// One scrubbed micro-animation per chapter scene, keyed on the visual's type class: the only motion in
+// a chapter, so the eye has one place to go. Targets are the "sc-" hooks inside app/scenes.js; animated groups carry no transform attribute of their own.
 const $ = (el, sel) => el.querySelector(sel);
 const $$ = (el, sel) => [...el.querySelectorAll(sel)];
 
@@ -290,41 +221,11 @@ function chapterScenes() {
     if (!build) return;
     const tl = gsap.timeline({
       defaults: { ease: "none" },
-      scrollTrigger: { trigger: el, start: "top 88%", end: "center 45%", scrub: 0.7 },
+      // It plays while the panel sits mid-screen, where the copy beside it is being read, not while it
+      // is still entering at the bottom edge.
+      scrollTrigger: { trigger: el, start: "top 72%", end: "center 42%", scrub: 0.7 },
     });
     build(el, tl, cueSync(el, tl));
-  });
-}
-
-// Pointer-driven 3D tilt on the chapter scenes and the warrant.
-function tilt() {
-  const cleanups = [];
-  q(".chapter-visual").forEach((el) => {
-    const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3.out" });
-    const ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3.out" });
-    gsap.set(el, { transformPerspective: 900 });
-    const move = (e) => {
-      const r = el.getBoundingClientRect();
-      ry(((e.clientX - r.left) / r.width - 0.5) * 7);
-      rx(-((e.clientY - r.top) / r.height - 0.5) * 7);
-    };
-    const leave = () => { rx(0); ry(0); };
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerleave", leave);
-    cleanups.push(() => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); });
-  });
-  return () => cleanups.forEach((fn) => fn());
-}
-
-function dateRails() {
-  q(".chapter-fig > .visual-caption").forEach((el) => {
-    gsap.from(el, { opacity: 0, y: 10, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 94%", once: true } });
-  });
-  q(".chapter-date").forEach((el) => {
-    gsap.from(el, { opacity: 0, x: -14, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 90%", once: true } });
-  });
-  q(".fact-note, .chapter-detail").forEach((el) => {
-    gsap.from(el, { opacity: 0, x: 18, duration: 0.8, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 92%", once: true } });
   });
 }
 
@@ -335,24 +236,16 @@ export default function Motion() {
       document.documentElement.classList.add("motion");
       const offSmooth = smoothScroll();
       heroIntro();
-      heroExit();
       scrollProgress();
-      sheets();
       contextBand();
       headings();
       chapterScenes();
-      dateRails();
-      spineAndWordmark();
-      const offParallax = heroParallax();
-      const offTilt = window.matchMedia("(hover: hover)").matches ? tilt() : undefined;
       const refresh = () => ScrollTrigger.refresh();
       window.addEventListener("load", refresh);
       document.fonts?.ready.then(refresh);
       return () => {
         document.documentElement.classList.remove("motion");
         offSmooth();
-        offParallax?.();
-        offTilt?.();
         window.removeEventListener("load", refresh);
       };
     });
