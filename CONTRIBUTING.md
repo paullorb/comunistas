@@ -20,7 +20,7 @@ These are the project's method. A pull request that changes what the page says m
    4. press, labelled as press, and only for facts no official record carries.
 2. **No Wikipedia or other tertiary sources** as a citation. Use them to find the primary document, then cite that. The content check rejects them.
 3. **Open the source and read it.** Quote exactly, in the original language. Do not quote from memory, from a summary, or from an AI assistant's answer. If you used an AI tool to find or draft something, you are still the one vouching that the quote is in the document.
-4. **Translations are marked.** A quotation translated by us carries "(our translation)" / "(traducción propia)".
+4. **Translations are marked.** A quotation from a source in the page's language is word for word. A quotation we translated is followed, right after its closing mark, by a token with the source's language and its own words, e.g. `“the Supreme Command of the Nation”[[es: el Mando Supremo de la Nación]]`; the page shows it as a "tr." / "trad." mark that opens the original, and `npm run check` verifies the original is quoted in the other language.
 5. **Keep allegation, ruling and outcome apart.** "Was accused of", "a court held" and "was convicted of" are different facts. Nobody is described as guilty of something no court found.
 6. **Claims about named living people need a court ruling or an official document.** Press reports are not enough.
 7. **Show disagreements between sources** instead of choosing one silently. If two records give different dates, say so and say which is which.
