@@ -21,7 +21,7 @@
 ## Checklist
 
 - [ ] I opened each source and the quotes match it word for word, in the original language.
-- [ ] Translated quotes are marked "(our translation)" / "(traducción propia)".
+- [ ] Quotes from a source in the page's language are word for word; translated quotes carry an `[[xx: original]]` token after the closing mark.
 - [ ] Spanish and English are both updated.
 - [ ] New links are in `sourceBase` and in both `sources` lists.
 - [ ] `npm run check`, `npm run lint` and `npm run build` pass.

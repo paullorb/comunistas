@@ -112,10 +112,12 @@ export const sourceBase = [
   { lang: "es", href: "https://www.derechos.org/nizkor/chile/juicio/desafuero2.html" },
   { lang: "es", href: "https://www.derechos.org/nizkor/chile/juicio/reo.html" },
   { lang: "es", href: "https://www.hrw.org/legacy/spanish/press/2002/chile_pinochet.html" },
+  { lang: "en", href: "https://www.amnesty.org/en/wp-content/uploads/2021/06/amr220062002en.pdf" },
   { lang: "es", href: "https://www.derechos.org/nizkor/chile/doc/krassnoff.html" },
   { lang: "en", href: "https://www.govinfo.gov/content/pkg/CPRT-109SPRT20278/html/CPRT-109SPRT20278.htm" },
   { lang: "en", href: "https://www.govinfo.gov/content/pkg/CHRG-108shrg95501/html/CHRG-108shrg95501.htm" },
   { lang: "es", href: "https://www.memoriachilena.gob.cl/602/w3-article-92410.html" },
+  { lang: "es", href: "https://www.bcn.cl/historiapolitica/resenas_parlamentarias/wiki/Augusto_Pinochet_Ugarte" },
   // Press and secondary sources, used only where no official record was found
   { lang: "es", href: "https://cooperativa.cl/noticias/pais/augusto-pinochet/a-10-anos-de-la-detencion-de-pinochet-en-lond/2008-10-15/165904.html" },
   { lang: "es", href: "https://www.amnesty.org/es/latest/news/2013/10/how-general-pinochets-detention-changed-meaning-justice/" },
@@ -123,6 +125,5 @@ export const sourceBase = [
   { lang: "en", href: "https://theconversation.com/general-pinochet-arrest-20-years-on-heres-how-it-changed-global-justice-104806" },
   { lang: "es", href: "https://www.ultimahora.es/noticias/internacional/2000/03/04/923871/pinochet-llego-a-chile-en-plena-forma-y-con-honores-militares.html" },
   { lang: "es", href: "https://www.pagina12.com.ar/2000/00-03/00-03-04/pag03.htm" },
-  { lang: "es", href: "https://cooperativa.cl/noticias/pais/pinochet-fue-senador-vitalicio-por-cuatro-anos-y-tres-meses/2002-07-04/142000.html" },
   { lang: "en", href: "https://www.ipsnews.net/?p=22056" },
 ];
