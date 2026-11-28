@@ -9,6 +9,7 @@ import CueText from "../cue-text";
 import QuoteText from "../quote-text";
 import { Figure } from "../figures";
 import { SITE } from "../site";
+import LogoMark from "../logo-mark";
 import { getContent, hasLocale, locales, localePath } from "../i18n";
 
 const railTargets = ["#question", "#enemy", "#london", "#after", "#about", "#sources"];
@@ -62,7 +63,7 @@ export default async function Home({ params }) {
       </nav>
 
       <header className="topbar">
-        <a className="wordmark" href="#top" aria-label={ui.homeLabel}><span className="mark">C.</span> comunistas</a>
+        <a className="wordmark" href="#top" aria-label={ui.homeLabel}><LogoMark /> comunistas</a>
         <span className="edition">{ui.edition} <i /> 1973—2006</span>
         <div className="top-right">
           <a className="top-link" href="#sources">{ui.sourcesLink} <span aria-hidden="true">↗</span></a>
@@ -172,7 +173,7 @@ export default async function Home({ params }) {
 
       <footer className="site-footer" aria-label={ui.footer.nav}>
         <div className="foot-brand">
-          <a className="wordmark" href="#top"><span className="mark">C.</span> comunistas</a>
+          <a className="wordmark" href="#top"><LogoMark /> comunistas</a>
           <p>{ui.footer.tagline}</p>
           <small>{ui.footer.note}</small>
         </div>

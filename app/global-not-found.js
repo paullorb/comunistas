@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./motion.css";
+import LogoMark from "./logo-mark";
 
 export const metadata = {
   title: "404 — Comunistas",
@@ -13,7 +14,7 @@ export default function GlobalNotFound() {
     <html lang="es">
       <body className="nf-body">
         <main className="nf" id="main">
-          <a className="wordmark" href="/"><span className="mark">C.</span> comunistas</a>
+          <a className="wordmark" href="/"><LogoMark /> comunistas</a>
           <p className="eyebrow">404</p>
           <h1>
             <span className="nf-line">Esta página no figura</span>

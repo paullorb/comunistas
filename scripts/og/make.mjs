@@ -3,7 +3,7 @@
 import { chromium } from "playwright";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -18,12 +18,14 @@ for (const lang of ["es", "en"]) {
   await page.close();
 }
 
+// The icons are app/icon.svg (the same drawing as app/logo-mark.js) rendered at each size.
+const mark = await readFile(join(root, "app", "icon.svg"), "utf8");
 const icon = await browser.newPage({ viewport: { width: 180, height: 180 } });
-await icon.setContent(`<body style="margin:0;background:#bf2727;display:grid;place-items:center;width:180px;height:180px"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet"><div style="font:700 104px 'Playfair Display',serif;color:#f4efe4;margin-top:-8px">C.</div></body>`, { waitUntil: "networkidle" });
-await icon.evaluate(() => document.fonts.ready);
+await icon.setContent(`<body style="margin:0">${mark.replace("<svg ", '<svg width="180" height="180" ')}</body>`);
 await icon.screenshot({ path: join(root, "app", "apple-icon.png") });
 await icon.setViewportSize({ width: 48, height: 48 });
-await icon.setContent(`<body style="margin:0;background:transparent;width:48px;height:48px"><div style="width:48px;height:48px;border-radius:50%;background:#bf2727;display:grid;place-items:center;font:700 27px Georgia,serif;color:#f4efe4;padding-bottom:3px;box-sizing:border-box">C.</div></body>`);
+// A 1px clear border keeps the PNG in RGBA, which the ICO decoder requires (a fully opaque shot comes out RGB).
+await icon.setContent(`<body style="margin:0;padding:1px">${mark.replace("<svg ", '<svg width="46" height="46" style="display:block" ')}</body>`);
 // favicon.ico: screenshot to a scratch png, then wrap it in an ICO container.
 const favPng = await icon.screenshot({ omitBackground: true });
 const header = Buffer.alloc(22);
