@@ -21,7 +21,7 @@
 .context-statement>span{background:linear-gradient(var(--red),var(--red)) 0 100%/calc(var(--underline,0)*100%) 3px no-repeat;padding-bottom:4px}
 .chapter-detail{font:11px/1.6 var(--mono)!important;color:var(--ink)!important;margin-top:22px;letter-spacing:.01em}
 .chapter-detail b{display:block;color:var(--red);font-weight:500;font-size:11px;letter-spacing:.12em;margin-bottom:5px}
-.chapter-visual{will-change:transform;cursor:default}
+.chapter-visual{cursor:default}
 .sv{position:absolute;inset:0;width:100%;height:100%}
 .visual-return{background:#d4d0c6}.visual-immunity{background:#d7d1c5}.visual-verdict{background:#39332e}
 .visual-return .visual-caption{color:#d4d0c6}
